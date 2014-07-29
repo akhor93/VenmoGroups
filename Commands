@@ -1,0 +1,2 @@
+# Connect to database console from host machine
+psql -h localhost -p 5433 -U postgres -W -d venmogroups_development

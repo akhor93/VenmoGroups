@@ -1,0 +1,114 @@
+<div class="container">
+  <%= render partial: 'navigation/logged_in' %>
+  <div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="active"><a href="#group-list" role="tab" data-toggle="tab">Your Groups</a></li>
+      <li><a href="#group-form" role="tab" data-toggle="tab">New Group</a></li>
+      <li><a href="#edit-group" role="tab" data-toggle="tab">Edit Groups</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div class="tab-pane active fade in" id="group-list">
+        <table class="table table-striped">
+          <tr>
+            <td>Your Group</td>
+          </tr>
+          <tr>
+            <td>Your Group</td>
+          </tr>
+          <tr>
+            <td>Your Group</td>
+          </tr>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="group-form">
+        <%= render  "/groups/new" %>
+      </div>
+      <div class="tab-pane fade" id="edit-group">...</div>
+    </div>
+  </div>
+  <div class="footer">
+    <p>© Venmo Groups 2014</p>
+  </div>
+</div>
+
+<% content_for :customjs do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var friend_data = <%= @friends.to_s.html_safe %>;
+      var friends = friend_data.data
+
+
+
+      //TODO: Add a user, delete him, and then add him again
+
+      //Deep copy for autocomplete
+      var friends_autocomplete = JSON.parse(JSON.stringify(friends));
+      friends_autocomplete = friends_autocomplete.slice(0,9);
+
+      function split( val ) {
+        return val.split( /,\s*/ );
+      }
+      function extractLast( term ) {
+        return split( term ).pop();
+      }
+      function removeObjByDisplayName( arr, obj ) {
+        for(var i = 0; i < arr.length; i++) {
+          if(arr[i].display_name == obj.display_name) {
+            arr.splice(i,1);
+            return;
+          }
+        }
+      }
+
+      //Overrides default filter to look at display name
+      $.ui.autocomplete.filter = function (array, term) {
+        var matcher = new RegExp( $.ui.autocomplete.escapeRegex( term ), "i" );
+        return $.grep( array, function( value ) {
+          return matcher.test( value.display_name || value.username);
+        });
+      };
+   
+      $( "#members-input" )
+        // don't navigate away from the field on tab when selecting an item
+        .bind( "keydown", function( event ) {
+          if ( event.keyCode === $.ui.keyCode.TAB &&
+              $( this ).autocomplete( "instance" ).menu.active ) {
+            event.preventDefault();
+          }
+        })
+        .autocomplete({
+          minLength: 1,
+          source: function( request, response ) {
+            // delegate back to autocomplete, but extract the last term
+            response( $.ui.autocomplete.filter(
+              friends_autocomplete, extractLast( request.term ) ) );
+          },
+          focus: function( event, ui ) {
+            return false;
+          },
+          select: function( event, ui ) {
+            //Remove the user once used
+            removeObjByDisplayName( friends_autocomplete, ui.item );
+
+            var terms = split( this.value );
+            // remove the current input
+            terms.pop();
+            // add the selected item
+            terms.push( ui.item.display_name );
+            // add placeholder to get the comma-and-space at the end
+            terms.push( "" );
+            this.value = terms.join( ", " );
+            return false;
+          }
+        })
+        .autocomplete( "instance" )._renderItem = function( ul, item ) {
+          return $( "<li>" )
+            .append( "<a>" + item.display_name + "<br>" + item.first_name + "</a>" )
+            .appendTo( ul );
+        };
+    });
+  </script>
+<% end %>

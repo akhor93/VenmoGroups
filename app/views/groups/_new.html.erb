@@ -1,0 +1,16 @@
+<%= form_for :group, html: { class: 'form-horizontal', role: 'form'} do |f| %>
+  <div class="form-group">
+    <%= f.label :name, class: 'col-md-2 control-label' %>
+    <div class="col-md-10">
+      <%= f.text_field :name, class: 'form-control', placeholder: 'Group Name' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :members, class: 'col-md-2 control-label' %>
+    <div class="col-md-10">
+      <%= f.text_field :members, class: 'form-control', id: 'members-input', placeholder: 'Members' %>
+    </div>
+  </div>
+
+  <%= f.submit %>
+<% end %>

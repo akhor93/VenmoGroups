@@ -1,0 +1,45 @@
+<% content_for :head do %>
+  <title>VenmoGroups - Welcome!</title>
+<% end %>
+
+<div class="container">
+  <% if flash[:error] %>
+    <p class="bg-danger"><%= flash[:error] %></p>
+  <% end %>
+  <% if flash[:warning] %>
+    <p class="bg-warning"><%= flash[:warning] %></p>
+  <% end %>
+  <div class="header">
+    <ul class="nav nav-pills pull-right">
+      <li class="active"><a href="/">Log In</a></li>
+      <li><a href="mailto:akhor93@gmail.com">Contact</a></li>
+    </ul>
+    <h3 class="venmo-groups-title">Venmo Groups</h3>
+  </div>
+  <div class="jumbotron">
+    <h1>Bringing Groups to Venmo</h1>
+    <p><a href="https://api.venmo.com/v1/oauth/authorize?client_id=1843&scope=access_profile make_payments access_friends access_profile access_feed&response_type=code"><%= image_tag "connect-to-venmo.png" %></a>
+    </p>
+  </div>
+  <div class="row marketing">
+    <div class="col-lg-6">
+      <h4>Pay and Charge Multiple People</h4>
+      <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+      <h4>Create and Save Groups</h4>
+      <p>Save all the people you Venmo most often into groups!</p>
+    </div>
+
+    <div class="col-lg-6">
+      <h4>More Features</h4>
+      <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+      <h4>More Other Features</h4>
+      <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+    </div>
+  </div>
+  <div class="footer">
+    <p>© Venmo Groups 2014</p>
+  </div>
+</div>
+<%= debug(params) if Rails.env.development? %>
