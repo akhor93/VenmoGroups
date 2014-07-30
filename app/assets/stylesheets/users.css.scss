@@ -1,5 +1,6 @@
 .tab-content > .tab-pane {
   padding-top: 10px;
+  min-height: 300px;
 }
 
 .ui-autocomplete {
@@ -13,4 +14,8 @@
 //
 * html .ui-autocomplete {
   height: 100px;
+}
+
+#group-submit {
+  align:right;
 }

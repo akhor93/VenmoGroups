@@ -1,4 +1,4 @@
-<%= form_for :group, html: { class: 'form-horizontal', role: 'form'} do |f| %>
+<%= form_for @group, remote: true, html: { id: 'group-form', class: 'form-horizontal', format: :js, role: 'form'} do |f| %>
   <div class="form-group">
     <%= f.label :name, class: 'col-md-2 control-label' %>
     <div class="col-md-10">
@@ -11,6 +11,6 @@
       <%= f.text_field :members, class: 'form-control', id: 'members-input', placeholder: 'Members' %>
     </div>
   </div>
-
-  <%= f.submit %>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+  <%= f.submit class: 'btn btn-success pull-right', id: 'group-submit' %>
 <% end %>

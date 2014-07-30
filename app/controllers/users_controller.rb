@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   def show
     @user = current_user
     @friends = current_user.get_friends
+    @group = Group.new
   end
 
   def create

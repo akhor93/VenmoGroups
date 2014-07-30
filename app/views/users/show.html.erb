@@ -4,7 +4,7 @@
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       <li class="active"><a href="#group-list" role="tab" data-toggle="tab">Your Groups</a></li>
-      <li><a href="#group-form" role="tab" data-toggle="tab">New Group</a></li>
+      <li><a href="#group-form-div" role="tab" data-toggle="tab">New Group</a></li>
       <li><a href="#edit-group" role="tab" data-toggle="tab">Edit Groups</a></li>
     </ul>
 
@@ -23,7 +23,7 @@
           </tr>
         </table>
       </div>
-      <div class="tab-pane fade" id="group-form">
+      <div class="tab-pane fade" id="group-form-div">
         <%= render  "/groups/new" %>
       </div>
       <div class="tab-pane fade" id="edit-group">...</div>
@@ -39,8 +39,6 @@
     $(document).ready(function() {
       var friend_data = <%= @friends.to_s.html_safe %>;
       var friends = friend_data.data
-
-
 
       //TODO: Add a user, delete him, and then add him again
 
@@ -109,6 +107,42 @@
             .append( "<a>" + item.display_name + "<br>" + item.first_name + "</a>" )
             .appendTo( ul );
         };
+      
+      $('#group-form').validate({
+        submitHandler: function(form) {
+          var url = $(form).attr('action');
+          var data = {
+            group: {
+              name: $('#group_name').val(),
+              members: $('#members-input').val()
+            }
+          };
+          $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            dataType: 'script',
+            success: function(data) {
+              console.log(data);
+            },
+            error: function(err) {
+              console.log(err.responseText);
+            }
+          });
+        },
+        invalidHandler: function(event, validator) {
+          var errors = validator.numberOfInvalids();
+          if(errors) {
+
+          } else {
+
+          }
+        },
+        rules: {
+          "group[name]": "required",
+          "group[members]": "required"
+        }
+      });
     });
   </script>
 <% end %>

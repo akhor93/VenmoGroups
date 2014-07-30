@@ -1,7 +1,4 @@
 class User < ActiveRecord::Base
-  #Accessors
-  attr_accessor :friends
-
   # Validations
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -15,27 +12,10 @@ class User < ActiveRecord::Base
   #Methods
   def get_friends
     #use obscenely high limit to get all friends in one page
-    url = 'https://api.venmo.com/v1/users/' + venmo_id + '/friends?limit=1000&access_token=' + access_token
+    url = 'https://api.venmo.com/v1/users/' + venmo_id + '/friends?limit=2000&access_token=' + access_token
     friends_uri = URI(url)
     friends_res = Net::HTTP.get(friends_uri)
     return friends_res
-
-    # url = 'https://api.venmo.com/v1/users/' + venmo_id + '/friends?access_token=' + access_token
-    # friends = []
-    # counter = 0
-    # begin
-    #   friends_uri = URI(url)
-    #   friends_res = Net::HTTP.get(friends_uri)
-    #   friends_json = JSON.parse friends_res
-    #   friends << friends_json['data']
-    #   if url == friends_json['pagination']['next']
-    #     break
-    #   end
-    #   url = friends_json['pagination']['next'] + '&access_token=' + access_token
-    #   puts url
-    #   counter += 1
-    # end while friends_json['pagination'] || counter == 10
-    # return friends
   end
 
   #Virtual Attributes
