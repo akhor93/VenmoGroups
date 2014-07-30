@@ -6,6 +6,7 @@ class GroupsController < ApplicationController
     friend_json = JSON.parse friend_data
     group = Group.new(group_params)
     group.convert_members(friend_json['data'])
+    group.user_id = current_user.id
     respond_to do |format|
       if group.save
         format.html { redirect_to '/' }

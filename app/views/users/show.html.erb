@@ -12,15 +12,11 @@
     <div class="tab-content">
       <div class="tab-pane active fade in" id="group-list">
         <table class="table table-striped">
-          <tr>
-            <td>Your Group</td>
-          </tr>
-          <tr>
-            <td>Your Group</td>
-          </tr>
-          <tr>
-            <td>Your Group</td>
-          </tr>
+          <% @user.groups.each do |g| %>
+            <tr>
+              <td><%= g.name %></td>
+            </tr>
+          <% end %>
         </table>
       </div>
       <div class="tab-pane fade" id="group-form-div">
