@@ -11,9 +11,8 @@
  * file per style scope.
  *
  *= require jquery-ui/autocomplete
+ *= require bootstrap
  *= require_tree .
  *= require_self
  */
 
-@import "bootstrap-sprockets";
-@import "bootstrap";
