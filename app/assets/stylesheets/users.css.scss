@@ -1,6 +1,6 @@
 .tab-content > .tab-pane {
   padding-top: 10px;
-  min-height: 300px;
+  min-height: 200px;
 }
 
 .ui-autocomplete {
@@ -18,4 +18,8 @@
 
 #group-submit {
   align:right;
+}
+
+.glist-group-name {
+  font-size: 22px;
 }

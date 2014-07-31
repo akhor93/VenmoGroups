@@ -1,0 +1,13 @@
+<% members = JSON.parse group.members %>
+<tr>
+  <td>
+    <div>
+      <span class="glist-group-name"><%= group.name %> </span>(<%= num_members(members) %>)
+    </div>
+    <div>
+      <% members.each do |m| %>
+        <img src="<%= get_profile_picture_url(m,@friends) %>" />
+      <% end %>
+    </div>
+  </td>
+</tr>

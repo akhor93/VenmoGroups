@@ -2,13 +2,12 @@ class GroupsController < ApplicationController
   before_filter :require_login
 
   def create
-    friend_data = current_user.get_friends
-    friend_json = JSON.parse friend_data
-    group = Group.new(group_params)
-    group.convert_members(friend_json['data'])
-    group.user_id = current_user.id
+    @friends = current_user.get_friends
+    @group = Group.new(group_params)
+    @group.convert_members(@friends)
+    @group.user_id = current_user.id
     respond_to do |format|
-      if group.save
+      if @group.save
         format.html { redirect_to '/' }
         format.js   {}
         # format.json { render json: group, status: :created, location: group }
