@@ -1,8 +1,8 @@
 module ApplicationHelper
-  def get_profile_picture_url(venmoid, friends_arr)
+  def id_to_user(venmoid, friends_arr) 
     friends_arr.each do |f|
       if(f['id'] == venmoid)
-        return f['profile_picture_url']
+        return f
       end
     end
   end

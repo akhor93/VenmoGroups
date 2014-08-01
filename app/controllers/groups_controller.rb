@@ -12,7 +12,6 @@ class GroupsController < ApplicationController
         format.js   {}
         # format.json { render json: group, status: :created, location: group }
       else
-        puts group.errors
         # format.json { render json: group.errors, status: :unprocessable_entity }
       end
     end

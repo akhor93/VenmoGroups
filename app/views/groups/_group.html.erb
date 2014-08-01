@@ -1,13 +1,21 @@
 <% members = JSON.parse group.members %>
 <tr>
   <td>
-    <div>
-      <span class="glist-group-name"><%= group.name %> </span>(<%= num_members(members) %>)
+    <div style="max-width: 400px; float: left;">
+      <div>
+        <span class="glist-group-name"><%= group.name %> </span>(<%= num_members(members) %>)
+      </div>
+      <div>
+        <% members.each do |m| %>
+          <% user = id_to_user(m, @friends) %>
+          <img src="<%= user['profile_picture_url'] %>" class="img-circle prof-pic" style="height:48px; width:48px; margin-bottom: 5px;" data-toggle="tooltip" data-palement="top" title="<%= user['display_name'] %>" />
+        <% end %>
+      </div>
     </div>
-    <div>
-      <% members.each do |m| %>
-        <img src="<%= get_profile_picture_url(m,@friends) %>" />
-      <% end %>
+    <div style="float: right; padding-top: 20px">
+      <button class="btn btn-success" style="margin-right: 10px">Charge All</button>
+      <button class="btn btn-primary">Pay All</button>
     </div>
+    <div style="clear:both;"></div>
   </td>
 </tr>
