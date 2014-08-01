@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   validates :last_name, presence: true
   validates :access_token, presence: true
   validates :refresh_token, presence: true
-  validates :venmo_id, presence: true#, uniqueness: true
+  validates :venmo_id, presence: true, uniqueness: true
 
   #Associations
   has_many :groups, dependent: :destroy
