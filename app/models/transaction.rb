@@ -7,7 +7,6 @@ class Transaction < ActiveRecord::Base
   belongs_to :group
 
   def self.submit(params, user)
-    puts params.inspect
     group_id = params[:groupid]
     group = Group.find(group_id)
     members = JSON.parse(group.members);

@@ -155,7 +155,8 @@
       $('#pay-form').validate({
         submitHandler: function(form) {
           var url = $(form).attr('action');
-          var data = $(this).serializeArray();
+          var data = $(form).serializeArray();
+
           $.ajax({
             type: 'POST',
             url: url,
@@ -182,7 +183,7 @@
       $('#charge-form').validate({
         submitHandler: function(form) {
           var url = $(form).attr('action');
-          var data = $(this).serializeArray();
+          var data = $(form).serializeArray();
           $.ajax({
             type: 'POST',
             url: url,
