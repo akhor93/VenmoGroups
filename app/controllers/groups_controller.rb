@@ -1,6 +1,12 @@
 class GroupsController < ApplicationController
   before_filter :require_login
 
+  def show
+    @group = Group.find(params[:id])
+    @user = current_user
+    @members = Group.get_members(@group, @user)
+  end
+
   def create
     @friends = current_user.get_friends
     @group = Group.new(group_params)

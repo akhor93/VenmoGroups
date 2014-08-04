@@ -7,11 +7,19 @@ module ApplicationHelper
     end
   end
 
-  def num_members(members) 
+  def num_members(members, addTail = true) 
     if members.length == 1
-      return "1 member"
+      if addTail
+        return "1 member"
+      else
+        return "1"
+      end
     else
-      return members.length.to_s + " members"
+      if addTail
+        return members.length.to_s + " members"
+      else
+        return members.length.to_s
+      end
     end
   end
 end

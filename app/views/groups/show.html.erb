@@ -1,0 +1,31 @@
+<div class="container">
+  <%= render partial: 'navigation/logged_in' %>
+  <div id="messages"></div>
+  <div>
+    <div style="width:500px; float:left;">
+      <div>
+        <h3 style="margin-top: 0px"><%= @group.name %></h3>
+      </div>
+      <div>
+        <table class="table table-striped">
+          <tr>
+            <td>Transaction #1</td>
+          </tr>
+          <tr>
+            <td>Transaction #2</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div style="margin-left: 520px;">
+      <h3>Members (<%= num_members(@members, false) %>)</h3>
+      <% @members.each do |m| %>
+        <p><%= m['display_name'] %></p>
+      <% end %>
+    </div>
+    <div style="clear:both;"></div>
+  </div>
+  <div class="footer">
+    <p>© Venmo Groups 2014</p>
+  </div>
+</div>

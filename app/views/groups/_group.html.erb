@@ -3,7 +3,7 @@
   <td>
     <div style="max-width: 400px; float: left;">
       <div>
-        <span class="glist-group-name"><%= group.name %> </span>(<%= num_members(members) %>)
+        <a href="/groups/<%= group.id %>" class="glist-group-name"><%= group.name %></a> (<%= num_members(members) %>)
       </div>
       <div>
         <% members.each do |m| %>

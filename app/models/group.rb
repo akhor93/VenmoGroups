@@ -28,4 +28,15 @@ class Group < ActiveRecord::Base
       return false
     end
   end
+
+  def self.get_members(group, user)
+    members = Array.new();
+    memberids = JSON.parse group.members
+    memberids.each do |id|
+      uri = URI('https://api.venmo.com/v1/users/' + id + '?access_token=' + user.access_token)
+      data = JSON.parse Net::HTTP.get(uri)
+      members << data['data']
+    end
+    return members
+  end
 end
