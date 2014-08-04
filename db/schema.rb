@@ -13,11 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20140728154435) do
 
-  create_table "charges", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "groups", force: true do |t|
     t.string   "name"
     t.string   "members"
@@ -26,13 +21,9 @@ ActiveRecord::Schema.define(version: 20140728154435) do
     t.datetime "updated_at"
   end
 
-  create_table "payments", force: true do |t|
-    t.string   "charge"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "transactions", force: true do |t|
+    t.integer  "group_id"
+    t.string   "venmo_transaction_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

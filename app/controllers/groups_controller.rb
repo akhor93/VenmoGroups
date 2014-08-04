@@ -10,9 +10,8 @@ class GroupsController < ApplicationController
       if @group.save
         format.html { redirect_to '/' }
         format.js   {}
-        # format.json { render json: group, status: :created, location: group }
       else
-        # format.json { render json: group.errors, status: :unprocessable_entity }
+        format.json { render json: group.errors, status: :unprocessable_entity }
       end
     end
   end

@@ -1,5 +1,7 @@
+<h2>Users</h2>
 <table class="table table-striped">
   <tr>
+    <td>Id</td>
     <td>First Name</td>
     <td>Last Name</td>
     <td>Venmo ID</td>
@@ -9,6 +11,7 @@
   </tr>
   <% @users.each do |u| %>
     <tr>
+      <td><%= u.id %></td>
       <td><%= u.first_name %></td>
       <td><%= u.last_name %></td>
       <td><%= u.venmo_id %></td>
@@ -18,16 +21,30 @@
     </tr>
   <% end %>
 </table>
-
+<h2>Groups</h2>
 <table class="table table-striped">
   <tr>
+    <td>Id</td>
     <td>Name</td>
     <td>Members</td>
   </tr>
   <% @groups.each do |g| %>
     <tr>
+      <td><%= g.id %></td>
       <td><%= g.name %></td>
       <td><%= g.members %></td>
+    </tr>
+  <% end %>
+</table>
+<h2>Transactions</h2>
+<table class="table table-striped">
+  <tr>
+    <td>Transaction ID</td>
+  </tr>
+  <% @transactions.each do |t| %>
+    <tr>
+      <td><%= t.id %></td>
+      <td><%= t.venmo_transaction_id %></td>
     </tr>
   <% end %>
 </table>

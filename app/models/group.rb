@@ -5,6 +5,7 @@ class Group < ActiveRecord::Base
 
   #Associations
   belongs_to :user
+  has_many :transactions, dependent: :destroy
 
   #Custom Save
   #Need to change display names to venmo_ids

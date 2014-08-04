@@ -1,0 +1,33 @@
+<div class="modal fade" id="charge-modal" tabindex="-1" role="dialog" aria-labelledby="charge-label" aria-hidden="true">
+  <%= form_tag '/transactions', method: 'POST', remote: true, class: 'form-horizontal', id: 'charge-form' do %>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="charge-label">Charge <span id="charge-group-name">Group Name</span></h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <%= label_tag :amount, nil, class: 'col-md-2 control-label' %>
+            <div class="col-md-10">
+              <%= number_field_tag :amount, nil, min: 0, step: 0.01, id: 'charge-amount', class: 'form-control', placeholder: '0.00' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= label_tag :note, nil, class: 'col-md-2 control-label' %>
+            <div class="col-md-10">
+              <%= text_field_tag :note, nil, class: 'form-control', id: 'note-input', placeholder: 'for ice cream!' %>
+            </div>
+          </div>
+          <input type="hidden" id="charge-group-id" name="groupid" />
+          <%= hidden_field_tag 'type', 'charge' -%>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= submit_tag 'Charge', class: 'btn btn-success pull-right', id: 'group-submit' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

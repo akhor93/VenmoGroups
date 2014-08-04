@@ -13,8 +13,8 @@
       </div>
     </div>
     <div style="float: right; padding-top: 20px">
-      <button class="btn btn-success" style="margin-right: 10px">Charge All</button>
-      <button class="btn btn-primary">Pay All</button>
+      <button data-groupid="<%= group.id %>" data-groupname="<%= group.name %>" class="charge-btn btn btn-success" style="margin-right: 10px" data-toggle="modal" data-target="#charge-modal">Charge All</button>
+      <button data-groupid="<%= group.id %>" data-groupname="<%= group.name %>" class="pay-btn btn btn-primary"  data-toggle="modal" data-target="#pay-modal">Pay All</button>
     </div>
     <div style="clear:both;"></div>
   </td>

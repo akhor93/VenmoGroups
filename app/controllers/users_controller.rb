@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :require_login, :only => ['show']
+  before_filter :require_login, :only => ['show', 'settings']
 
   def show
     @user = current_user
@@ -40,5 +40,9 @@ class UsersController < ApplicationController
       flash[:error] = user.errors.full_messages
       redirect_to :controller => :welcome, :action => :index 
     end
+  end
+
+  def settings
+    @user = current_user
   end
 end
