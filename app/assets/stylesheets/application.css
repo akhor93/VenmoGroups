@@ -16,3 +16,10 @@
  *= require_self
  */
 
+.pay-text {
+  color: red;
+}
+
+.charge-text {
+  color: #009200;
+}

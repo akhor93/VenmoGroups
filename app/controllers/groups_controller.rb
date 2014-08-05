@@ -5,6 +5,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     @user = current_user
     @members = Group.get_members(@group, @user)
+    @transactions = Transaction.get_transactions_from_group(@group, @user)
   end
 
   def create

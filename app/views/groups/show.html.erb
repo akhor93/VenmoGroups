@@ -8,12 +8,9 @@
       </div>
       <div>
         <table class="table table-striped">
-          <tr>
-            <td>Transaction #1</td>
-          </tr>
-          <tr>
-            <td>Transaction #2</td>
-          </tr>
+          <% @transactions.each do |t| %>
+            <%= render :partial => 'transactions/transaction', :object => t, :locals => { :group => @group } %>
+          <% end %>
         </table>
       </div>
     </div>
