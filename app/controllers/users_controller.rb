@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     verify_uri = URI('https://api.venmo.com/v1/oauth/access_token')
     verify_res = Net::HTTP.post_form(verify_uri, 'client_id' => 1843, 'client_secret' => "9wgWKHkzY5pLdcAbwJq3wqy7uEAFHzaR", 'code' => params[:code])
     user_json = JSON.parse verify_res.body
-
+    puts user_json
 
     if User.exists?(:venmo_id => user_json['user']['id'])
       user = User.where(venmo_id: user_json['user']['id']).first

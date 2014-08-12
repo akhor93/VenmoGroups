@@ -1,12 +1,12 @@
 <% if transaction['status'] == 'cancelled' %>
   <% return %>
 <% end %>
-
+<% puts transaction %>
 <tr>
   <td>
     <div style="width: 400px; float: left">
       <div>
-        You blank <%= group.name %>
+        You <%= transaction['action'] %> <%= group.name %>
       </div>
       <div>
         Time ago

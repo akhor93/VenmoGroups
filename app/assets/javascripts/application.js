@@ -16,4 +16,10 @@
 //= require turbolinks
 //= require bootstrap
 //= require jquery.validate
+//= require moment
+//= require underscore
+//= require backbone
+//= require backbone_rails_sync
+//= require backbone_datalink
+//= require backbone/venmo_groups
 //= require_tree .

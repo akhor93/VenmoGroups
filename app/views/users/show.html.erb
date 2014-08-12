@@ -136,19 +136,21 @@
         }
       });
       
-      $('.charge-btn').click(function() {
+      var updateChargeFields = function() {
         var groupid = $(this).data('groupid');
         $('#charge-group-id').val(groupid);
         var groupname = $(this).data('groupname');
         $('#charge-group-name').text(groupname);
-      });
+      }
+      $('.charge-btn').click(updateChargeFields);
 
-      $('.pay-btn').click(function() {
+      var updatePayFields = function() {
         var groupid = $(this).data('groupid');
         $('#pay-group-id').val(groupid);
         var groupname = $(this).data('groupname');
         $('#pay-group-name').text(groupname);
-      });
+      }
+      $('.pay-btn').click(updatePayFields);
 
       $('#pay-form').validate({
         submitHandler: function(form) {

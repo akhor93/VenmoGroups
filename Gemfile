@@ -41,6 +41,8 @@ gem 'spring',        group: :development
 gem 'autoprefixer-rails'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'jquery-ui-rails'
+gem 'momentjs-rails'
+gem 'rails-backbone'
 
 
 
