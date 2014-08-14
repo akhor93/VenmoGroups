@@ -20,31 +20,19 @@
         </table>
       </div>
       <div id="navigation">
-        Home
-        <br />
-        <a href="#/groups/">Groups</a>
-        <br />
-        Link 3
+        <div class="link">
+          <a href="#/index">Home</a>
+        </div>
+        <div class="link">
+          <a href="#/groups/">Groups</a>
+        </div>
       </div>
     </div>
 
   </div>
   <div id="mainbar">
     <div id="main-content">
-      <div>
-        <table width="100%">
-          <tr>
-            <td>
-              <h1>Welcome Andrew Khor!</h1>
-            </td>
-            <td>
-              <div style="background-color: #3D94D1; padding: 10px 20px;">
-                $9.99
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
+      SHOULD BE REPLACED
     </div>
   </div>
 </div> 
@@ -55,13 +43,20 @@
     var groups = new VenmoGroups.Collections.GroupsCollection(<%= @groups.to_json.html_safe -%>);
     var friends_arr = <%= @friends.to_json.html_safe -%>;
     var friends = toObject(friends_arr);
-    window.router = new VenmoGroups.Routers.GroupsRouter({
+    var groupRouter = new VenmoGroups.Routers.GroupsRouter({
       user: user,
       groups: groups,
       friends: friends,
       friends_arr: friends_arr
     });
-    if (!Backbone.History.started) Backbone.history.start();
+    var transactionRouter = new VenmoGroups.Routers.TransactionRouter({
+      user: user,
+      groups: groups,
+      transactions: groups,
+      friends: friends,
+      friends_arr: friends_arr
+    });
+    if (!Backbone.History.started) Backbone.history.start({ root: '/user/ <%= @user_id %>' });
 
     function toObject(arr) {
       var obj = {};

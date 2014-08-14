@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_filter :require_login, :only => ['show', 'settings']
 
   def show
+    @user_id = current_user.id
     @user = current_user.get_full_info
     @friends = current_user.get_friends
     @groups = current_user.groups

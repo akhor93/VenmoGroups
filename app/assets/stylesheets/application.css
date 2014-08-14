@@ -16,6 +16,14 @@
  *= require_self
  */
 
+body {
+  font-family: 'Avenir Next', 'Helvetica Neue', Arial;
+}
+
+.container {
+  width: 970px;
+}
+
 .pay-text {
   color: red;
 }

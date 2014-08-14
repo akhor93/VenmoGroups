@@ -1,22 +1,17 @@
 <h1><%= group ? 'Edit' : 'New' %> Group</h1>
 <br />
-<form class="form-horizontal" id="edit-group" name="group" role="form">
+<form id="edit-group" name="group" role="form">
   <div class="form-group">
-    <label class="col-md-2 control-label" for="name"> Group Name:</label>
-    <div class="col-md-9">
-      <input class="form-control" type="text" name="name" value="<%= group ? group.get('name') : '' %>" >
-    </div>
+      <input class="form-control" type="text" name="name" value="<%= group ? group.get('name') : '' %>" placeholder="Group Name" >
   </div>
 
   <div class="form-group">
-    <label class="col-md-2 control-label" for="members"> Members:</label>
-    <div class="col-md-9">
-      <input class="form-control" id="members-input" type="text" name="members" value="<%= group ? group.get('members') : '' %>" >
-    </div>
+    <input class="form-control" id="members-input" type="text" name="members" value="<%= group ? group.get('members') : '' %>" placeholder="Members" >
   </div>
 
-  <div class="actions">
-    <button type="submit"><%= group ? 'Update' : 'Create' %></button>
+  <div class="form-group">
+    <a href="#/groups" class="btn btn-default">Back</a>
+    <button type="submit" class="btn btn-success"><%= group ? 'Update' : 'Create' %></button>
   </div>
   <% if(group) { %>
     <input type="hidden" name="id" value="<%= group.id %>" />
@@ -24,5 +19,3 @@
   <% }; %>
 
 </form>
-
-<a href="#/index">Back</a>
