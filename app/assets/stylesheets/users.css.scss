@@ -1,25 +1,24 @@
-.tab-content > .tab-pane {
-  padding-top: 10px;
-  min-height: 200px;
+#sidebar {
+  display: inline-block;
+  width: 250px;
+  float: left;
+  overflow: hidden;
+  #logo-container {
+    padding: 10px;
+    img {
+      width: 120px;
+    }
+  }
+  #user-info-box {
+    img {
+      width: 50px
+    }
+  }
+  #navigation {
+    padding: 10px;
+  }
 }
 
-.ui-autocomplete {
-  max-height: 100px;
-  overflow-y: auto;
-  // prevent horizontal scrollbar
-  overflow-x: hidden;
-}
-// IE 6 doesn't support max-height
-// we use height instead, but this forces the menu to always be this tall
-//
-* html .ui-autocomplete {
-  height: 100px;
-}
-
-#group-submit {
-  align:right;
-}
-
-.glist-group-name {
-  font-size: 22px;
+#mainbar {
+  margin-left: 260px;
 }

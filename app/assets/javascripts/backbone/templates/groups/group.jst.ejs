@@ -1,0 +1,15 @@
+<td>
+  <div style="max-width: 400px; float: left;">
+    <div>
+      <a href="/groups/<%= group.id %>" class="glist-group-name"><%= group.name %></a> (<%= num_members_text %>)
+    </div>
+    <div>
+      <img />
+    </div>
+  </div>
+  <div style="float: right; padding-top: 20px">
+    <button data-groupid="<%= group.id %>" data-groupname="<%= group.name %>" class="charge-btn btn btn-success" style="margin-right: 10px" data-toggle="modal" data-target="#charge-modal">Charge All</button>
+    <button data-groupid="<%= group.id %>" data-groupname="<%= group.name %>" class="pay-btn btn btn-primary"  data-toggle="modal" data-target="#pay-modal">Pay All</button>
+  </div>
+  <div style="clear:both;"></div>
+</td>

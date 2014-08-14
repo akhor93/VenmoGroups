@@ -1,212 +1,75 @@
-<%= render partial: 'transactions/charge_modal' %>
-<%= render partial: 'transactions/pay_modal' %>
 <div class="container">
-  <%= render partial: 'navigation/logged_in' %>
-  <div>
-    <div id="messages">
-
+  <div id="sidebar">
+    <div id="logo-container">
+      <img class="logo" src="https://developer.venmo.com/static/imgs/venmo_logo_blue.png" />
     </div>
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-      <li class="active"><a href="#group-list" role="tab" data-toggle="tab" id="group-list-link">Your Groups</a></li>
-      <li><a href="#group-form-div" role="tab" data-toggle="tab">New Group</a></li>
-    </ul>
-
-    <!-- Tab panes -->
-    <div class="tab-content">
-      <div class="tab-pane active fade in" id="group-list">
-        <table id="group-list-table" class="table table-striped">
-          <%= render @user.groups %>
+    <br />
+    <div style="border-right: 3px solid #e5e5e5">
+      <div id="user-info-box">
+        <table>
+          <tr>
+            <td>
+              <img src="https://venmopics.appspot.com/u/v1/n/799a657f-e184-470a-bba6-86698f8a3a65" />
+            </td>
+            <td>
+              Andrew Khor
+              <br />
+              Sign Out
+            </td>
+          </tr>
         </table>
       </div>
-      <div class="tab-pane fade" id="group-form-div">
-        <%= render  "/groups/new" %>
+      <div id="navigation">
+        Home
+        <br />
+        <a href="#/groups/">Groups</a>
+        <br />
+        Link 3
+      </div>
+    </div>
+
+  </div>
+  <div id="mainbar">
+    <div id="main-content">
+      <div>
+        <table width="100%">
+          <tr>
+            <td>
+              <h1>Welcome Andrew Khor!</h1>
+            </td>
+            <td>
+              <div style="background-color: #3D94D1; padding: 10px 20px;">
+                $9.99
+              </div>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
-  <div class="footer">
-    <p>© Venmo Groups 2014</p>
-  </div>
-</div>
+</div> 
 
-<% content_for :customjs do %>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $('.prof-pic').tooltip();
-
-      var friends = <%= raw(@friends.to_json) %>;
-
-      //TODO: Add a user, delete him, and then add him again
-
-      //Deep copy for autocomplete
-      var friends_autocomplete = JSON.parse(JSON.stringify(friends));
-
-      function split( val ) {
-        return val.split( /,\s*/ );
-      }
-      function extractLast( term ) {
-        return split( term ).pop();
-      }
-      function removeObjByDisplayName( arr, obj ) {
-        for(var i = 0; i < arr.length; i++) {
-          if(arr[i].display_name == obj.display_name) {
-            arr.splice(i,1);
-            return;
-          }
-        }
-      }
-
-      //Overrides default filter to look at display name
-      $.ui.autocomplete.filter = function (array, term) {
-        var matcher = new RegExp( $.ui.autocomplete.escapeRegex( term ), "i" );
-        return $.grep( array, function( value ) {
-          return matcher.test( value.display_name || value.username);
-        });
-      };
-   
-      $( "#members-input" )
-        // don't navigate away from the field on tab when selecting an item
-        .bind( "keydown", function( event ) {
-          if ( event.keyCode === $.ui.keyCode.TAB &&
-              $( this ).autocomplete( "instance" ).menu.active ) {
-            event.preventDefault();
-          }
-        })
-        .autocomplete({
-          minLength: 1,
-          source: function( request, response ) {
-            // delegate back to autocomplete, but extract the last term
-            response( $.ui.autocomplete.filter(
-              friends_autocomplete, extractLast( request.term ) ) );
-          },
-          focus: function( event, ui ) {
-            return false;
-          },
-          select: function( event, ui ) {
-            //Remove the user once used
-            removeObjByDisplayName( friends_autocomplete, ui.item );
-
-            var terms = split( this.value );
-            // remove the current input
-            terms.pop();
-            // add the selected item
-            terms.push( ui.item.display_name );
-            // add placeholder to get the comma-and-space at the end
-            terms.push( "" );
-            this.value = terms.join( ", " );
-            return false;
-          }
-        })
-        .autocomplete( "instance" )._renderItem = function( ul, item ) {
-          return $( "<li>" )
-            .append( "<a>" + item.display_name + "<br>" + item.first_name + "</a>" )
-            .appendTo( ul );
-        };
-      
-      $('#group-form').validate({
-        submitHandler: function(form) {
-          var url = $(form).attr('action');
-          var data = {
-            group: {
-              name: $('#group_name').val(),
-              members: $('#members-input').val()
-            }
-          };
-          $.ajax({
-            type: 'POST',
-            url: url,
-            data: data,
-            dataType: 'script',
-            error: function(err) {
-              console.log(err.responseText);
-            }
-          });
-        },
-        invalidHandler: function(event, validator) {
-          var errors = validator.numberOfInvalids();
-          if(errors) {
-
-          } else {
-
-          }
-        },
-        rules: {
-          "group[name]": "required",
-          "group[members]": "required"
-        }
-      });
-      
-      var updateChargeFields = function() {
-        var groupid = $(this).data('groupid');
-        $('#charge-group-id').val(groupid);
-        var groupname = $(this).data('groupname');
-        $('#charge-group-name').text(groupname);
-      }
-      $('.charge-btn').click(updateChargeFields);
-
-      var updatePayFields = function() {
-        var groupid = $(this).data('groupid');
-        $('#pay-group-id').val(groupid);
-        var groupname = $(this).data('groupname');
-        $('#pay-group-name').text(groupname);
-      }
-      $('.pay-btn').click(updatePayFields);
-
-      $('#pay-form').validate({
-        submitHandler: function(form) {
-          var url = $(form).attr('action');
-          var data = $(form).serializeArray();
-
-          $.ajax({
-            type: 'POST',
-            url: url,
-            data: data,
-            dataType: 'script',
-            error: function(err) {
-              console.log(err.responseText);
-            }
-          });
-        },
-        invalidHandler: function(event, validator) {
-          var errors = validator.numberOfInvalids();
-          if(errors) {
-
-          } else {
-
-          }
-        },
-        rules: {
-          "amount": "required",
-          "note": "required"
-        }
-      });
-      $('#charge-form').validate({
-        submitHandler: function(form) {
-          var url = $(form).attr('action');
-          var data = $(form).serializeArray();
-          $.ajax({
-            type: 'POST',
-            url: url,
-            data: data,
-            dataType: 'script',
-            error: function(err) {
-              console.log(err.responseText);
-            }
-          });
-        },
-        invalidHandler: function(event, validator) {
-          var errors = validator.numberOfInvalids();
-          if(errors) {
-
-          } else {
-
-          }
-        },
-        rules: {
-          "amount": "required",
-          "note": "required"
-        }
-      });
+<script type="text/javascript">
+  $(function() {
+    var user = new VenmoGroups.Models.User(<%= @user.to_json.html_safe -%>)
+    var groups = new VenmoGroups.Collections.GroupsCollection(<%= @groups.to_json.html_safe -%>);
+    var friends_arr = <%= @friends.to_json.html_safe -%>;
+    var friends = toObject(friends_arr);
+    window.router = new VenmoGroups.Routers.GroupsRouter({
+      user: user,
+      groups: groups,
+      friends: friends,
+      friends_arr: friends_arr
     });
-  </script>
-<% end %>
+    if (!Backbone.History.started) Backbone.history.start();
+
+    function toObject(arr) {
+      var obj = {};
+      for (var i = 0; i < arr.length; i++) {
+        var id = arr[i].id;
+        obj[id] = arr[i];
+      }
+      return obj;
+    }
+  });
+</script>

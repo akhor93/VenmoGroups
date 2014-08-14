@@ -2,23 +2,22 @@ class GroupsController < ApplicationController
   before_filter :require_login
 
   def show
-    @group = Group.find(params[:id])
     @user = current_user
+    @group = Group.find(params[:id])
     @members = Group.get_members(@group, @user)
     @transactions = Transaction.get_transactions_from_group(@group, @user)
   end
 
   def create
-    @friends = current_user.get_friends
     @group = Group.new(group_params)
-    @group.convert_members(@friends)
     @group.user_id = current_user.id
     respond_to do |format|
       if @group.save
-        format.html { redirect_to '/' }
-        format.js   {}
+        format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        format.json { render json: @group, status: :created, location: @group }
       else
-        format.json { render json: group.errors, status: :unprocessable_entity }
+        puts @group.errors.full_messages
+        format.json { render json: @group.errors, status: :unprocessable_entity }
       end
     end
   end

@@ -29,11 +29,8 @@ ActiveRecord::Schema.define(version: 20140728154435) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
     t.string   "access_token"
     t.string   "refresh_token"
-    t.string   "picture_url"
     t.string   "venmo_id"
     t.datetime "created_at"
     t.datetime "updated_at"
