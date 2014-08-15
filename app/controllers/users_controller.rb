@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @user = current_user.get_full_info
     @friends = current_user.get_friends
     @groups = current_user.groups
-    @group = Group.new
+    @transactions = current_user.transactions
   end
 
   def create

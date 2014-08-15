@@ -1,9 +1,9 @@
 class TransactionsController < ApplicationController
   def create
-    @transactions = Transaction.submit(params, current_user)
+    @transaction = Transaction.submit_and_save(params[:transaction], current_user)
     respond_to do |format|
-      format.html { redirect_to '/' }
-      format.js   {}
+      format.html { redirect_to @transaction, notice: 'Group was successfully created.' }
+      format.json { render json: @transaction, status: :created, location: @group }
     end
   end
 end

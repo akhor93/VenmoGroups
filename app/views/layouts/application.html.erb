@@ -9,9 +9,18 @@
 </head>
 <body>
 
+<div id="header"></div>
+
 <%= yield %>
 
 <%= yield :customjs %>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <%= debug(params) if Rails.env.development? %>
 </body>
 </html>

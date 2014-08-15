@@ -1,31 +1,32 @@
 class Transaction < ActiveRecord::Base
   #Validations
   validates :group, presence: true
-  validates :venmo_transaction_id, presence: true, uniqueness: true
+  validates :venmo_transaction_ids, presence: true
 
   #Associations
   belongs_to :group
+  belongs_to :user
 
-  def self.submit(params, user)
+  def self.submit_and_save(params, user)
+    puts params.inspect
     group_id = params[:groupid]
     group = Group.find(group_id)
     members = JSON.parse(group.members);
     amount = params[:amount]
-    if params[:type] === 'charge'
+    if params[:action] === 'charge'
       amount.insert(0,'-');
     end
-    transactions = Array.new
+    transaction_ids = Array.new
     members.each do |m|
-      url = 'https://api.venmo.com/v1/payments'
-      uri = URI.parse(url);
-      res = Net::HTTP.post_form(uri, 'access_token' => user.access_token, 'user_id' => m, 'note' => params[:note], 'amount' => params[:amount], 'audience' => 'friends');
+      uri = URI('https://api.venmo.com/v1/payments');
+      res = Net::HTTP.post_form(uri, 'access_token' => user.access_token, 'user_id' => m, 'note' => params[:note], 'amount' => amount, 'audience' => 'friends');
       res_json = JSON.parse res.body
       payment = res_json['data']['payment']
-      transaction_params = { :group => group, :venmo_transaction_id => payment['id'] }
-      transaction = Transaction.create(transaction_params)
-      transactions << transaction
+      transaction_ids << payment['id']
     end
-    return transactions
+    transaction_params = { :group => group, :user => user, :amount => amount, :note => params[:note], :action => params[:action], :venmo_transaction_ids => transaction_ids.to_json }
+    transaction = Transaction.create(transaction_params)
+    return transaction
   end
 
   def self.get_transactions_from_group(group, user)

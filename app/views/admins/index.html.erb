@@ -33,12 +33,23 @@
 <h2>Transactions</h2>
 <table class="table table-striped">
   <tr>
-    <td>Transaction ID</td>
+    <td>Id</td>
+    <td>Group</td>
+    <td>User</td>
+    <td>Amount</td>
+    <td>Note</td>
+    <td>Action</td>
+    <td>Venmo Transaction IDs</td>
   </tr>
   <% @transactions.each do |t| %>
     <tr>
       <td><%= t.id %></td>
-      <td><%= t.venmo_transaction_id %></td>
+      <td><%= t.group %></td>
+      <td><%= t.user %></td>
+      <td><%= t.amount %></td>
+      <td><%= t.note %></td>
+      <td><%= t.action %></td>
+      <td><%= t.venmo_transaction_ids %></td>
     </tr>
   <% end %>
 </table>

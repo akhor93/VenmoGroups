@@ -23,7 +23,11 @@ ActiveRecord::Schema.define(version: 20140728154435) do
 
   create_table "transactions", force: true do |t|
     t.integer  "group_id"
-    t.string   "venmo_transaction_id"
+    t.integer  "user_id"
+    t.decimal  "amount"
+    t.string   "note"
+    t.string   "action"
+    t.string   "venmo_transaction_ids"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

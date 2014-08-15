@@ -1,34 +1,6 @@
-<div class="container">
+<div class="container" style="margin-top: 10px;">
   <div id="sidebar">
-    <div id="logo-container">
-      <img class="logo" src="https://developer.venmo.com/static/imgs/venmo_logo_blue.png" />
-    </div>
-    <br />
-    <div style="border-right: 3px solid #e5e5e5">
-      <div id="user-info-box">
-        <table>
-          <tr>
-            <td>
-              <img src="https://venmopics.appspot.com/u/v1/n/799a657f-e184-470a-bba6-86698f8a3a65" />
-            </td>
-            <td>
-              Andrew Khor
-              <br />
-              Sign Out
-            </td>
-          </tr>
-        </table>
-      </div>
-      <div id="navigation">
-        <div class="link">
-          <a href="#/index">Home</a>
-        </div>
-        <div class="link">
-          <a href="#/groups/">Groups</a>
-        </div>
-      </div>
-    </div>
-
+    REPLACE ME
   </div>
   <div id="mainbar">
     <div id="main-content">
@@ -39,22 +11,19 @@
 
 <script type="text/javascript">
   $(function() {
+    // console.log(<%= @groups.to_json.html_safe -%>);
     var user = new VenmoGroups.Models.User(<%= @user.to_json.html_safe -%>)
     var groups = new VenmoGroups.Collections.GroupsCollection(<%= @groups.to_json.html_safe -%>);
     var friends_arr = <%= @friends.to_json.html_safe -%>;
     var friends = toObject(friends_arr);
-    var groupRouter = new VenmoGroups.Routers.GroupsRouter({
+    var transactions = new VenmoGroups.Collections.TransactionsCollection(<%= @transactions.to_json.html_safe -%>);
+
+    window.router = new VenmoGroups.Routers.AppRouter({
       user: user,
       groups: groups,
       friends: friends,
-      friends_arr: friends_arr
-    });
-    var transactionRouter = new VenmoGroups.Routers.TransactionRouter({
-      user: user,
-      groups: groups,
-      transactions: groups,
-      friends: friends,
-      friends_arr: friends_arr
+      friends_arr: friends_arr,
+      transactions: transactions
     });
     if (!Backbone.History.started) Backbone.history.start({ root: '/user/ <%= @user_id %>' });
 

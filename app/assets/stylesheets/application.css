@@ -20,6 +20,11 @@ body {
   font-family: 'Avenir Next', 'Helvetica Neue', Arial;
 }
 
+#header {
+  height: 20px;
+  background-color: #5bc0de;
+}
+
 .container {
   width: 970px;
 }
