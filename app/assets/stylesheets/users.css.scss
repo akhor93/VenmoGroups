@@ -31,4 +31,11 @@
 
 #mainbar {
   margin-left: 260px;
+
+  .transaction-container {
+    color: grey;
+    border: 2px solid #e5e5e5;
+    margin-bottom: 10px;
+    padding: 7px;
+  }
 }

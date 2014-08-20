@@ -4,9 +4,9 @@ class CreateTransactions < ActiveRecord::Migration
       t.belongs_to :group
       t.belongs_to :user
       t.decimal :amount
-      t.string :note
+      t.text :note
       t.string :action
-      t.string :venmo_transaction_ids
+      t.text :venmo_transaction_ids
       t.timestamps
     end
   end

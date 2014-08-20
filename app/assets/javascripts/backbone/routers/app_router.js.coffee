@@ -43,7 +43,8 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
   index: ->
     @renderSideView()
     @mainview = new VenmoGroups.Views.Transactions.IndexView({
-      collection: @groups
+      collection: @transactions
+      groups: @groups
       user: @user
       friends: @friends
     })

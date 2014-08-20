@@ -13,8 +13,9 @@ class VenmoGroups.Views.Transactions.IndexView extends Backbone.View
     view = new VenmoGroups.Views.Transactions.TransactionView({
       model: transaction
       friends: @options.friends
+      groups: @options.groups
     })
-    @$('#transactions-table tbody').append(view.render().el)
+    @$('#transactions-accordion').prepend(view.render().el)
 
   render: =>
     @$el.html(@template())

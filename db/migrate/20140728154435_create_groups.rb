@@ -2,7 +2,7 @@ class CreateGroups < ActiveRecord::Migration
   def change
     create_table :groups do |t|
       t.string :name
-      t.string :members
+      t.text :members
       t.belongs_to :user
       t.timestamps
     end

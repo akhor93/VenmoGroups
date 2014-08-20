@@ -1,1 +1,47 @@
-<h1>TEST</h1>
+<a data-toggle="collapse" data-parent="#transactions-accordion" href="#collapse<%= transaction.id %>" class="toggle-transaction-info">
+  <table style="width: 100%; table-layout: fixed; color: grey">
+    <tr>
+      <td style="width: 115px">
+        <%= date %>
+      </td>
+      <td style="width: 210px; word-wrap: break-word; padding: 0 8px">
+        <%= group.name %>
+      </td>
+      <td style="width: 160px; text-align: center">
+        <% var members = JSON.parse(group.members) %>
+        <%= members.length %>
+        <object type='image/svg+xml' data='/assets/nav-people.svg' style="vertical-align: middle">
+          Your browser does not support SVG
+        </object>
+      </td>
+      <td style="width: 100px">
+        <% if(transaction.action == 'pay') { %>
+          <span class="pay-text bold">
+            -$<%= transaction.amount %>
+          </span>
+        <% } else { %>
+          <span class="charge-text bold">
+            +$<%= transaction.amount %>
+          </span>
+        <% } %>
+      </td>
+      <td>
+      <span style="font-size: 20px;" class="chevron glyphicon glyphicon-chevron-down"/>
+      </td>
+    </tr>
+  </table>
+</a>
+
+<div id="collapse<%= transaction.id %>" class="panel-collapse collapse">
+  <hr />
+  <div style="display: table">
+    <div style="display: inline-block; width: 350px; padding: 5px; border-right: 1px solid #e5e5e5;">
+      <% for(var i = 0; i < members.length; i++) { %>
+        <img src="<%= friends[members[i]].profile_picture_url %>" class="img-circle" style="max-width: 50px" alt="<%=friends[members[i]].display_name %>" />
+      <% } %>
+    </div>
+    <div style="display: table-cell; padding: 5px; vertical-align: top; word-break: break-word">
+      <%= transaction.note %>
+    </div>
+  </div>
+</div>
