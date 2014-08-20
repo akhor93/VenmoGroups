@@ -7,12 +7,14 @@
     <table>
       <tr>
         <td>
-          <img src="https://venmopics.appspot.com/u/v1/n/799a657f-e184-470a-bba6-86698f8a3a65" />
+          <a href="/users/<%= user.id %>">
+            <img src="https://venmopics.appspot.com/u/v1/n/799a657f-e184-470a-bba6-86698f8a3a65" />
+          </a>
         </td>
         <td style="padding-left: 10px">
-          <a href=""><%= user.user.display_name %></a>
+          <%= user.user.display_name %>
           <br />
-          Sign Out
+          <a href="/sign_out">Sign Out</a>
         </td>
       </tr>
     </table>
