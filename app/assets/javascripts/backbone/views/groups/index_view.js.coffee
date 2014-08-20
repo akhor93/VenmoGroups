@@ -14,7 +14,7 @@ class VenmoGroups.Views.Groups.IndexView extends Backbone.View
       model: group
       friends: @options.friends
     })
-    @$('#groups-table tbody').append(view.render().el)
+    @$('#groups-accordion').prepend(view.render().el)
 
   render: =>
     @$el.html(@template())

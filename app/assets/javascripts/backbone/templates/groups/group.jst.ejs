@@ -1,15 +1,47 @@
-<td>
-  <div style="max-width: 400px; float: left; word-wrap: break-word">
-    <div>
-      <%= group.name %> (<%= num_members_text %>)
-    </div>
-    <div>
-      <img />
+<div>
+  <div style="height: 10px; width: 100%; background-color: #5bc0de"></div>
+  <table style="table-layout: fixed; width: 100%; color: grey;" cellpadding="5px">
+    <tr>
+      <td style="max-width: 400px; word-break: break-word">
+        <div style="font-size: 24px; color: #3C95D2;">
+          <%= group.name %>
+        </div>
+        <div >
+          <a data-toggle="collapse" data-parent="#groups-accordion" href="#group<%= group.id %>" class="toggle-group-info">
+            <%= num_members_text %>
+          </a>
+        </div>
+      </td>
+      <td style="text-align: right">
+        MORE ACTIONS
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div id="group<%= group.id %>" class="panel-collapse collapse">
+  <hr />
+  <div>
+    <table style="width: 100%">
+    <% var members = JSON.parse(group.members) %>
+    <% var newRow = true %>
+    <% for(var i = 0; i < members.length; i++) { %>
+      <%= newRow ? '<tr>' : '' %>
+        <td style="width: 50%; padding: 4px;">
+          <img src="<%= friends[members[i]].profile_picture_url %>" class="img-circle" style="max-width: 50px" alt="<%=friends[members[i]].display_name %>" />
+          <%= friends[members[i]].display_name %>
+        </td>
+      <%= newRow ? '' : '</tr>' %>
+      <% newRow = !newRow %>
+    <% } %>
+    </table>
+    <div style="background-color: #e5e5e5; border: 1px solid #919191; color: #919191">
+      <div style="display:inline-block; width: 49%; border-right: 1px solid #919191; text-align: center; padding: 5px">
+        Remove Members
+      </div>
+      <div style="display:inline-block; width: 49%; text-align: center; padding: 5px">
+        Add Members
+      </div>
     </div>
   </div>
-  <div style="float: right;">
-    <a href="#/groups/charge/<%= group.id %>" class="charge-btn btn btn-success" style="margin-right: 10px">Charge All</a>
-    <a href="#/groups/pay/<%= group.id %>" class="pay-btn btn btn-primary">Pay All</a>
-  </div>
-  <div style="clear:both;"></div>
-</td>
+</div>
