@@ -8,7 +8,7 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
 
   routes:
     'groups/edit/:id': 'groupEdit'
-    'groups/new': 'groupEdit'
+    'groups/new': 'groupNew'
     'groups/:action/:id': 'transactionNew'
     'groups/.*' : 'groupIndex'
     '.*': 'index'
@@ -17,9 +17,19 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     @renderSideView()
     @view = new VenmoGroups.Views.Groups.EditView({
       collection: @groups
+      friends: @friends
+      friends_arr: @friends_arr
+      id: id
+    })
+    $('#main-content').html(@view.render().el)
+
+  groupNew: ->
+    @renderSideView()
+    @view = new VenmoGroups.Views.Groups.NewView({
+      collection: @groups
       friends_arr: @friends_arr
     })
-    $('#main-content').html(@view.render({ id: id }).el)
+    $('#main-content').html(@view.render().el)
 
   groupIndex: ->
     @renderSideView()

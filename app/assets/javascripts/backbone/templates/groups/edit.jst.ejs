@@ -1,21 +1,17 @@
-<h1><%= group ? 'Edit' : 'New' %> Group</h1>
+<h1>Edit Group</h1>
 <br />
 <form id="edit-group" name="group" role="form">
   <div class="form-group">
-      <input class="form-control" type="text" name="name" value="<%= group ? group.get('name') : '' %>" placeholder="Group Name" >
+      <input class="form-control" type="text" name="name" value="<%= group.get('name') %>" placeholder="Group Name" >
   </div>
 
   <div class="form-group">
-    <input class="form-control" id="members-input" type="text" name="members" value="<%= group ? group.get('members') : '' %>" placeholder="Members" >
+    <input class="form-control" id="members-input" type="text" name="members" value="<%= members_text %>" placeholder="Members" >
   </div>
 
   <div class="form-group">
-    <a href="#/groups" class="btn btn-default">Back</a>
-    <button type="submit" class="btn btn-success"><%= group ? 'Update' : 'Create' %></button>
-  </div>
-  <% if(group) { %>
-    <input type="hidden" name="id" value="<%= group.id %>" />
+    <a href="#/groups/" class="btn btn-default">Back</a>
     <button data-group-id="<%= group.id %>" class="btn btn-danger delete">Delete</button>
-  <% }; %>
-
+    <button type="submit" class="btn btn-success">Update</button>
+  </div>
 </form>

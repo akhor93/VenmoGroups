@@ -10,6 +10,6 @@ class VenmoGroups.Views.Groups.GroupView extends Backbone.View
     @$el.html(@template({
       group: @model.toJSON()
       friends: @options.friends
-      num_members_text: @model.get('num_members_text')
+      num_members_text: @model.get_num_members_text()
     }))
     return this

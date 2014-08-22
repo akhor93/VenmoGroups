@@ -1,11 +1,4 @@
 class VenmoGroups.Models.Group extends Backbone.Model
-  initialize: ->
-    @updateAttributes();
-    @on( "change", @updateAttributes, this );
-
-  updateAttributes: ->
-    @set('num_members_text', @get_num_members_text())
-
   get_num_members_text: ->
     members = @.get('members')
     if !members

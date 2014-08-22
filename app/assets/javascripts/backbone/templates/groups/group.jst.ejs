@@ -2,18 +2,22 @@
   <div style="height: 10px; width: 100%; background-color: #5bc0de"></div>
   <table style="table-layout: fixed; width: 100%; color: grey;" cellpadding="5px">
     <tr>
-      <td style="max-width: 400px; word-break: break-word">
-        <div style="font-size: 24px; color: #3C95D2;">
-          <%= group.name %>
-        </div>
-        <div >
-          <a data-toggle="collapse" data-parent="#groups-accordion" href="#group<%= group.id %>" class="toggle-group-info">
-            <%= num_members_text %>
-          </a>
-        </div>
+      <td style="width: 90%; word-break: break-word">
+        <a data-toggle="collapse" data-parent="#groups-accordion" href="#group<%= group.id %>" class="toggle-group-info disable-hover-underline">
+          <div style="padding: 5px">
+            <div style="font-size: 24px; color: #3C95D2;">
+              <%= group.name %>
+            </div>
+            <div >
+              <%= num_members_text %>
+            </div>
+          </div>
+        </a>
       </td>
       <td style="text-align: right">
-        MORE ACTIONS
+        <a href="#/groups/edit/<%= group.id %>">
+          <img width="40px" src="/images/cog.png" />
+        </a>
       </td>
     </tr>
   </table>
@@ -35,13 +39,17 @@
       <% newRow = !newRow %>
     <% } %>
     </table>
-    <div style="background-color: #e5e5e5; border: 1px solid #919191; color: #919191">
-      <div style="display:inline-block; width: 49%; border-right: 1px solid #919191; text-align: center; padding: 5px">
-        Remove Members
-      </div>
-      <div style="display:inline-block; width: 49%; text-align: center; padding: 5px">
-        Add Members
-      </div>
+    <div style="background-color: #5bc0de; border: 1px solid #919191; color: white">
+      <a href="#/groups/charge/<%= group.id %>" style="color: white">
+        <div style="display:inline-block; width: 49%; border-right: 1px solid #919191; text-align: center; padding: 5px">
+          Request
+        </div>
+      </a>
+      <a href="#/groups/pay/<%= group.id %>"  style="color: white">
+        <div style="display:inline-block; width: 49%; text-align: center; padding: 5px">
+          Pay
+        </div>
+      </a>
     </div>
   </div>
 </div>

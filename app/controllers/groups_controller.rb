@@ -2,10 +2,11 @@ class GroupsController < ApplicationController
   before_filter :require_login
 
   def show
-    @user = current_user
-    @group = Group.find(params[:id])
-    @members = Group.get_members(@group, @user)
-    @transactions = Transaction.get_transactions_from_group(@group, @user)
+    @group = Group.find( params[:id] )
+    respond_to do |format|
+      format.html
+      format.json { render json: @group }
+    end
   end
 
   def create
@@ -17,6 +18,19 @@ class GroupsController < ApplicationController
         format.json { render json: @group, status: :created, location: @group }
       else
         puts @group.errors.full_messages
+        format.json { render json: @group.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    @group = Group.find(params[:id])
+    respond_to do |format|
+      if @group.update(group_params)
+        format.html { redirect_to @group, notice: 'Post was successfully updated.' }
+        format.json { render json: @group, status: :ok }
+      else
+        format.html { render :edit }
         format.json { render json: @group.errors, status: :unprocessable_entity }
       end
     end

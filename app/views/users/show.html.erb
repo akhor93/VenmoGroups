@@ -11,7 +11,6 @@
 
 <script type="text/javascript">
   $(function() {
-    // console.log(<%= @groups.to_json.html_safe -%>);
     var user = new VenmoGroups.Models.User(<%= @user.to_json.html_safe -%>)
     var groups = new VenmoGroups.Collections.GroupsCollection(<%= @groups.to_json.html_safe -%>);
     var friends_arr = <%= @friends.to_json.html_safe -%>;

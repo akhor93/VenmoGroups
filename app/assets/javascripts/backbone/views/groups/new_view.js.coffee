@@ -1,17 +1,17 @@
 VenmoGroups.Views.Groups ||= {}
 
-class VenmoGroups.Views.Groups.EditView extends Backbone.View
-  template: JST['backbone/templates/groups/edit']
+class VenmoGroups.Views.Groups.NewView extends Backbone.View
+  template: JST['backbone/templates/groups/new']
 
   initialize: ->
-    @model = @collection.get(@options.id)
+    @model = new @collection.model()
     @reset()
 
   reset: ->
     @friends_arr_original = JSON.parse(JSON.stringify(@options.friends_arr))
 
   events:
-    'submit #edit-group': 'save'
+    'submit #new-group': 'save'
 
   save: (e) ->
     that = this
@@ -19,13 +19,14 @@ class VenmoGroups.Views.Groups.EditView extends Backbone.View
     e.stopPropagation()
 
     groupDetails = $(e.currentTarget).serializeObject();
-    groupDetails.members = @memberNamesToID(groupDetails.members);
+    groupDetails.members = @memberNamesToId(groupDetails.members);
     @model.save(groupDetails, {
       success: (group) ->
+        that.collection.add(group)
         window.location.hash = "#/groups/"
     });
 
-  memberNamesToID: (member_string) ->
+  memberNamesToId: (member_string) ->
     members_as_venmoid = []
     names = member_string.split(', ')
     for n in names
@@ -35,21 +36,10 @@ class VenmoGroups.Views.Groups.EditView extends Backbone.View
           break
     return JSON.stringify(members_as_venmoid)
 
-  IDToMemberNames: (ids_string) ->
-    ids = JSON.parse(ids_string);
-    members = [];
-    for id in ids
-      members.push(@options.friends[id]['display_name'] + ', ')
-    return members.join("")
-
-  render: ->
-    @group = @collection.get(@options.id)
-    @$el.html(@template({
-      group: @group
-      members_text: @IDToMemberNames(@group.get('members'))
-    }))
-    @$("form").backboneLink(@group)
-    @attachAutocomplete(@group.toJSON().members)
+  render: (options) ->
+    @$el.html(@template())
+    @$("form").backboneLink(@model)
+    @attachAutocomplete()
     return this
 
   split: ( val ) ->
