@@ -11,6 +11,8 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     'groups/new': 'groupNew'
     'groups/:action/:id': 'transactionNew'
     'groups/.*' : 'groupIndex'
+    'transactions/new/:action/:id': 'transactionNew'
+    'transactions/new/.*': 'transactionNew'
     '.*': 'index'
 
   groupEdit: (id) ->
@@ -53,10 +55,12 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     $('#main-content').html(@view.render().el)
 
   transactionNew: (action, id) ->
+    console.log("1");
     @renderSideView()
+    group = if id then @groups.get(id) else null
     @view = new VenmoGroups.Views.Transactions.NewView({
       collection: @transactions
-      group: @groups.get(id)
+      group: group
       friends: @friends
       action: action
     })

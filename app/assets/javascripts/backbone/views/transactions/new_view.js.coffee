@@ -22,11 +22,17 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
     });
 
   render: (options) ->
+    group = if @options.group then @options.group.toJSON() else null
     @$el.html(@template({
       model: @model.toJSON()
-      group: @options.group.toJSON()
+      group: group
       action: @options.action
       friends: @options.friends
     }))
+    # Work around so JqueryUI and Bootstrap play nice
+    btn = $.fn.button.noConflict()
+    $.fn.btn = btn
+
+    @$('#actions').buttonset()
     @$("form").backboneLink(@model)
     return this
