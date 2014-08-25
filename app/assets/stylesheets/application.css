@@ -46,3 +46,7 @@ body {
 .disable-hover-underline:hover {
   text-decoration: none;
 }
+
+.capitalize {
+  text-transform: capitalize;
+}

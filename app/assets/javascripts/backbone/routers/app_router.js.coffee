@@ -27,9 +27,13 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     @renderSideView()
     @view = new VenmoGroups.Views.Groups.NewView({
       collection: @groups
-      friends_arr: @friends_arr
     })
     $('#main-content').html(@view.render().el)
+    @onebox = new VenmoGroups.Views.Components.AutoCompleteView({
+      user: @user
+      friends_arr: @friends_arr
+    });
+    $('#members-input').html(@onebox.render().el)
 
   groupIndex: ->
     @renderSideView()

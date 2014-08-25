@@ -55,4 +55,21 @@
   .dark-on-hover {
     background-color: #5bc0de
   }
+
+  .member-box {
+    border: 1px solid #A0b9d0;
+    display: inline-block;
+    border-radius: 5px;
+    padding: 2px 4px;
+    background: #dee9ee;
+    margin-right: 4px
+  }
+  .onebox-x {
+    background: url(https://d1v6x81qdeozhc.cloudfront.net/static/images/icons/dialog_close_box-2b089ba8716706d2dba02a8a39b2e506.gif) no-repeat 0px 3px;
+    width: 15px;
+    height: 20px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
