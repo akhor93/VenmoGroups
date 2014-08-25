@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   #Methods
   def get_friends
     #use obscenely high limit to get all friends in one page
-    url = 'https://api.venmo.com/v1/users/' + venmo_id + '/friends?limit=2000&access_token=' + access_token
+    url = 'https://api.venmo.com/v1/users/' + venmo_id + '/friends?limit=10&access_token=' + access_token
     friends_uri = URI(url)
     friends_res = Net::HTTP.get(friends_uri)
     friends_json = JSON.parse friends_res

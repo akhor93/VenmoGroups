@@ -7,11 +7,21 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
     @friends_arr_original = JSON.parse(JSON.stringify(@options.friends_arr))
 
   render: =>
-    @$el.html(@template({
-      user: @options.user.toJSON()
-    }))
+    @$el.html(@template())
+    if @model
+      @appendExistingMembers()
     @attachAutocomplete()
     return this
+
+  appendExistingMembers: =>
+    members = JSON.parse(@model.get('members'))
+    for m in members
+      @friends_arr_original = @friends_arr_original.filter (user) -> 
+        user.id isnt m.toString()
+      memberbox = new VenmoGroups.Views.Components.MemberBoxView({
+        user: @options.friends[m]
+      })
+      @$('#venmo-onebox-names').append(memberbox.render().el);
 
   split: ( val ) ->
     return val.split( /,\s*/ )
@@ -45,12 +55,12 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
         source: (request, response ) ->
           # delegate back to autocomplete, but extract the last term
           response( $.ui.autocomplete.filter(
-            that.options.friends_arr, that.extractLast( request.term ) ) )
+            that.friends_arr_original, that.extractLast( request.term ) ) )
         focus: (event, ui ) ->
           return false
         select: (event, ui) ->
           # Remove the user once used
-          that.removeObjByDisplayName( that.options.friends_arr, ui.item )
+          that.removeObjByDisplayName( that.friends_arr_original, ui.item )
           memberbox = new VenmoGroups.Views.Components.MemberBoxView({
             user: ui.item
           })

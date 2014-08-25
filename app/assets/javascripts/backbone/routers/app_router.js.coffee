@@ -15,13 +15,20 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
 
   groupEdit: (id) ->
     @renderSideView()
+    @group = @groups.get(id)
     @view = new VenmoGroups.Views.Groups.EditView({
-      collection: @groups
+      model: @group
       friends: @friends
       friends_arr: @friends_arr
-      id: id
     })
     $('#main-content').html(@view.render().el)
+    @onebox = new VenmoGroups.Views.Components.AutoCompleteView({
+      user: @user
+      friends_arr: @friends_arr
+      model: @group
+      friends: @friends
+    });
+    $('#members-input').html(@onebox.render().el)
 
   groupNew: ->
     @renderSideView()

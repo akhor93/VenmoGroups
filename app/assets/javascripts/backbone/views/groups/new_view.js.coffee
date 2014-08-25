@@ -29,16 +29,6 @@ class VenmoGroups.Views.Groups.NewView extends Backbone.View
       members.push($(e).attr('data-userid'))
     return JSON.stringify(members)
 
-  memberNamesToId: (member_string) ->
-    members_as_venmoid = []
-    names = member_string.split(', ')
-    for n in names
-      for f in @friends_arr_original
-        if f.display_name == n
-          members_as_venmoid.push(f.id)
-          break
-    return JSON.stringify(members_as_venmoid)
-
   render: (options) ->
     @$el.html(@template())
     @$("form").backboneLink(@model)

@@ -21,5 +21,4 @@ class VenmoGroups.Views.Components.MemberBoxView extends Backbone.View
     @$el.html(@template({
       user: @options.user
     }))
-
     return this
