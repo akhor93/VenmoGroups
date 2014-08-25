@@ -18,6 +18,7 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     @group = @groups.get(id)
     @view = new VenmoGroups.Views.Groups.EditView({
       model: @group
+      collection: @groups
       friends: @friends
       friends_arr: @friends_arr
     })

@@ -5,6 +5,7 @@ class VenmoGroups.Views.Groups.EditView extends Backbone.View
 
   events:
     'submit #edit-group': 'save'
+    'click .delete': 'destroy'
 
   save: (e) ->
     that = this
@@ -25,12 +26,12 @@ class VenmoGroups.Views.Groups.EditView extends Backbone.View
       members.push($(e).attr('data-userid'))
     return JSON.stringify(members)
 
-  IDToMemberNames: (ids_string) ->
-    ids = JSON.parse(ids_string);
-    members = [];
-    for id in ids
-      members.push(@options.friends[id]['display_name'] + ', ')
-    return members.join("")
+  destroy: (e) ->
+    e.preventDefault()
+    @model.destroy({
+      success: () ->
+        window.location.hash = "#/groups/"
+    })
 
   render: ->
     @$el.html(@template({

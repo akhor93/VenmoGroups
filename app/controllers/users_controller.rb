@@ -7,7 +7,6 @@ class UsersController < ApplicationController
     @user = current_user.get_full_info
     @friends = current_user.get_friends
     @groups = current_user.groups
-    remove_user_ids(@groups)
     @transactions = current_user.transactions
   end
 
@@ -42,10 +41,4 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
-  def remove_user_ids(groups)
-    groups.each do |g|
-      puts g.class.name
-      # g.delete(:user_id)
-    end
-  end
 end
