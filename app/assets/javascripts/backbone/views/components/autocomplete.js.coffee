@@ -5,6 +5,7 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
 
   initialize: ->
     @source = JSON.parse(JSON.stringify(@options.source))
+    @selected = []
 
   render: =>
     @$el.html(@template())
@@ -55,7 +56,6 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
       )
       .autocomplete({
         minLength: 1
-        appendTo: '#venmo-onebox'
         source: (request, response ) ->
           # delegate back to autocomplete, but extract the last term
           response( $.ui.autocomplete.filter(
@@ -65,10 +65,18 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
         select: (event, ui) ->
           # Remove the user once used
           that.removeObjByDisplayName( that.source, ui.item )
-          memberbox = new VenmoGroups.Views.Components.MemberBoxView({
-            user: ui.item
-          })
-          $('#venmo-onebox-names').append(memberbox.render().el);
+          if ui.item.type == 'group'
+            members = JSON.parse ui.item.members
+            for m in members
+              memberbox = new VenmoGroups.Views.Components.MemberBoxView({
+                user: that.options.friends[m]
+              })
+              $('#venmo-onebox-names').append(memberbox.render().el);
+          else
+            memberbox = new VenmoGroups.Views.Components.MemberBoxView({
+              user: ui.item
+            })
+            $('#venmo-onebox-names').append(memberbox.render().el);
           this.value = ""
           # attach handler
           return false
