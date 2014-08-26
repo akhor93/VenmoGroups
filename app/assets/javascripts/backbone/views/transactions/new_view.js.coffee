@@ -11,6 +11,7 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
     'remove-memberbox': 'removeMemberbox'
     'add-memberbox': 'updateFields'
     'change #transaction-amount': 'updateTotal'
+    'click .action-button': 'setAction'
 
   save: (e, target) ->
     that = this
@@ -45,6 +46,9 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
   updateTotal: ->
     @total = @numPeople * $('#transaction-amount').val()
     @$('#transaction-total').html(@total.toFixed(2))
+
+  setAction: (ev) ->
+    $('#transaction-submit-button').html($(ev.currentTarget).html())
 
   render: (options) ->
     group = if @options.group then @options.group.toJSON() else null

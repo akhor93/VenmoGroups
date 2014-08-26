@@ -5,7 +5,7 @@
     <input type="radio" id="pay-radio" value="pay" name="action" <%= action == 'pay' ? 'checked="checked"' : '' %> <%= action == undefined ? 'checked="checked"' : '' %> />
     <label class="action-button" for="pay-radio">Pay</label>
     <input type="radio" id="charge-radio" value="charge" name="action" <%= action == 'charge' ? 'checked="checked"' : '' %>/>
-    <label for="charge-radio">Charge</label>
+    <label class="action-button" for="charge-radio">Charge</label>
   </div>
   To:
   <div class="form-group">
@@ -40,6 +40,6 @@
 
   <div class="form-group">
     <a href="#/groups/" class="btn btn-default">Back</a>
-    <button type="submit" class="btn btn-primary"><%= action == 'pay' ? 'Pay' : 'Charge' %></button>
+    <button type="submit" id="transaction-submit-button" class="btn btn-primary"><%= action != 'pay' ? 'Pay' : 'Charge' %></button>
   </div>
 </form>
