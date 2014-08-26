@@ -1,7 +1,6 @@
 class CreateTransactions < ActiveRecord::Migration
   def change
     create_table :transactions do |t|
-      t.belongs_to :group
       t.belongs_to :user
       t.decimal :amount
       t.text :note

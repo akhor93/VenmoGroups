@@ -12,12 +12,16 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
     'add-memberbox': 'updateFields'
     'change #transaction-amount': 'updateTotal'
 
-  save: (e) ->
+  save: (e, target) ->
     that = this
     e.preventDefault()
     e.stopPropagation()
 
     transactionDetails = $(e.currentTarget).serializeObject();
+    members = []
+    for e in $('#venmo-onebox-names .member-box')
+      members.push $(e).attr('data-userid')
+    transactionDetails.members = members
     @model.save(transactionDetails, {
       success: (transaction) ->
         that.collection.add(transaction)
@@ -41,7 +45,6 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
   updateTotal: ->
     @total = @numPeople * $('#transaction-amount').val()
     @$('#transaction-total').html(@total.toFixed(2))
-
 
   render: (options) ->
     group = if @options.group then @options.group.toJSON() else null

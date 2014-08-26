@@ -3,8 +3,9 @@
 <form id="new-transaction" role="form">
   <div class="form-group" id="actions">
     <input type="radio" id="pay-radio" value="pay" name="action" <%= action == 'pay' ? 'checked="checked"' : '' %> <%= action == undefined ? 'checked="checked"' : '' %> />
-    <label for="pay-radio">Pay</label>
-    <input type="radio" id="charge-radio" value="charge" name="action" <%= action == 'charge' ? 'checked="checked"' : '' %>/><label for="charge-radio">Charge</label>
+    <label class="action-button" for="pay-radio">Pay</label>
+    <input type="radio" id="charge-radio" value="charge" name="action" <%= action == 'charge' ? 'checked="checked"' : '' %>/>
+    <label for="charge-radio">Charge</label>
   </div>
   To:
   <div class="form-group">
