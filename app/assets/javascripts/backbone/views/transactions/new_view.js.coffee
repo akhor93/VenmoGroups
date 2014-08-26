@@ -27,7 +27,6 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
       model: @model.toJSON()
       group: group
       action: @options.action
-      friends: @options.friends
     }))
     # Work around so JqueryUI and Bootstrap play nice
     btn = $.fn.button.noConflict()

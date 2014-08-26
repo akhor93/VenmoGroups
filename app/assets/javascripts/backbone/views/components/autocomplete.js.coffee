@@ -4,7 +4,7 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
   template: JST['backbone/templates/components/autocomplete']
 
   initialize: ->
-    @friends_arr_original = JSON.parse(JSON.stringify(@options.friends_arr))
+    @source = JSON.parse(JSON.stringify(@options.source))
 
   render: =>
     @$el.html(@template())
@@ -16,7 +16,7 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
   appendExistingMembers: =>
     members = JSON.parse(@model.get('members'))
     for m in members
-      @friends_arr_original = @friends_arr_original.filter (user) -> 
+      @source = @source.filter (user) -> 
         user.id isnt m.toString()
       memberbox = new VenmoGroups.Views.Components.MemberBoxView({
         user: @options.friends[m]
@@ -40,7 +40,7 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
       matcher = new RegExp( $.ui.autocomplete.escapeRegex( term ), "i" )
       return $.grep(array
         (value) ->
-          return matcher.test( value.display_name || value.username)
+          return matcher.test( value.display_name || value.username || value.name)
       );
     @$( "#members-input" )
       # don't navigate away from the field on tab when selecting an item
@@ -55,12 +55,12 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
         source: (request, response ) ->
           # delegate back to autocomplete, but extract the last term
           response( $.ui.autocomplete.filter(
-            that.friends_arr_original, that.extractLast( request.term ) ) )
+            that.source, that.extractLast( request.term ) ) )
         focus: (event, ui ) ->
           return false
         select: (event, ui) ->
           # Remove the user once used
-          that.removeObjByDisplayName( that.friends_arr_original, ui.item )
+          that.removeObjByDisplayName( that.source, ui.item )
           memberbox = new VenmoGroups.Views.Components.MemberBoxView({
             user: ui.item
           })
@@ -70,6 +70,11 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
           return false
       })
       .autocomplete( "instance" )._renderItem = ( ul, item ) ->
-        return $( "<li>" )
-          .append( "<a>" + item.display_name + "<br>" + item.first_name + "</a>" )
-          .appendTo( ul )
+        if item.type == 'group'
+          return $( "<li>" )
+            .append( item.name )
+            .appendTo( ul )
+        else
+          return $( "<li>" )
+            .append( item.display_name + "<br>" + item.first_name )
+            .appendTo( ul )

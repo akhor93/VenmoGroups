@@ -1,6 +1,9 @@
 class VenmoGroups.Models.Group extends Backbone.Model
+  initialize: ->
+    @set('type','group')
+
   get_num_members_text: ->
-    members = @.get('members')
+    members = @get('members')
     if !members
       return ''
     num_members = (JSON.parse(members)).length

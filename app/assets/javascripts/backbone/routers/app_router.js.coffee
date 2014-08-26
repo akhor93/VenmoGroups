@@ -27,7 +27,7 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     $('#main-content').html(@view.render().el)
     @onebox = new VenmoGroups.Views.Components.AutoCompleteView({
       user: @user
-      friends_arr: @friends_arr
+      source: @friends_arr
       model: @group
       friends: @friends
     });
@@ -41,7 +41,7 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     $('#main-content').html(@view.render().el)
     @onebox = new VenmoGroups.Views.Components.AutoCompleteView({
       user: @user
-      friends_arr: @friends_arr
+      source: @friends_arr
     });
     $('#members-input').html(@onebox.render().el)
 
@@ -55,16 +55,19 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     $('#main-content').html(@view.render().el)
 
   transactionNew: (action, id) ->
-    console.log("1");
     @renderSideView()
     group = if id then @groups.get(id) else null
     @view = new VenmoGroups.Views.Transactions.NewView({
       collection: @transactions
       group: group
-      friends: @friends
       action: action
     })
     $('#main-content').html(@view.render().el)
+    @onebox = new VenmoGroups.Views.Components.AutoCompleteView({
+      user: @user
+      source: @groups.toJSON().concat(@friends_arr)
+    });
+    $('#targets-input').html(@onebox.render().el)
 
   index: ->
     @renderSideView()
