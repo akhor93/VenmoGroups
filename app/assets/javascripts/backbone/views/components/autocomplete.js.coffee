@@ -15,7 +15,6 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
     @source.push(@options.friends[id])
     @selected = @selected.filter (user) ->
       user.id isnt id
-    @$el.trigger('remove-memberbox')
 
   render: =>
     @$el.html(@template())

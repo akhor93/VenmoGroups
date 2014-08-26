@@ -8,7 +8,7 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
 
   events:
     'submit #new-transaction': 'save'
-    'remove-memberbox': 'updateFields'
+    'remove-memberbox': 'removeMemberbox'
     'add-memberbox': 'updateFields'
     'change #transaction-amount': 'updateTotal'
 
@@ -23,6 +23,10 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
         that.collection.add(transaction)
         window.location.hash = "#/groups/"
     });
+
+  removeMemberbox: (ev, id) ->
+    $('#memberbox-' + id).remove()
+    @updateFields()
 
   updateFields: ->
     @updateNumPeople()

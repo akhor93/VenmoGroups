@@ -10,11 +10,7 @@ class VenmoGroups.Views.Components.MemberBoxView extends Backbone.View
   }
 
   destroy: =>
-    @undelegateEvents()
-    @$el.removeData().unbind()
-    @remove
-    Backbone.View.prototype.remove.call(this)
-    @$el.trigger('remove-memberbox', [@options.user.id])
+    @$el.trigger('remove-memberbox', @options.user.id)
 
   render: =>
     @$el.addClass('member-box')
