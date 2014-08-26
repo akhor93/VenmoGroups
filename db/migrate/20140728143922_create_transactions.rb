@@ -2,6 +2,7 @@ class CreateTransactions < ActiveRecord::Migration
   def change
     create_table :transactions do |t|
       t.belongs_to :user
+      t.text :members
       t.decimal :amount
       t.text :note
       t.string :action

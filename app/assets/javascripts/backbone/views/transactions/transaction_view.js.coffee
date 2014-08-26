@@ -19,19 +19,12 @@ class VenmoGroups.Views.Transactions.TransactionView extends Backbone.View
     transaction = @model.toJSON()
     @$el.addClass('transaction-container')
     date = moment(transaction.created_at)
-    groups = @options.groups.toJSON()
-    group
-    for g in groups
-      if g.id == transaction.group_id
-        group = g
-        members = JSON.parse(group.members)
-        num_members = members.length
-        break
     transaction.amount = @flipSigns(transaction.amount)
+    console.log(transaction)
     @$el.html(@template({
       transaction: transaction
       friends: @options.friends
-      group: group
+      members: JSON.parse(transaction.members)
       date: date.format("MM/DD/YY")
     }))
     return this

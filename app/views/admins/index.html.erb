@@ -34,7 +34,7 @@
 <table class="table table-striped">
   <tr>
     <td>Id</td>
-    <td>Group</td>
+    <td>Members</td>
     <td>User</td>
     <td>Amount</td>
     <td>Note</td>
@@ -44,7 +44,7 @@
   <% @transactions.each do |t| %>
     <tr>
       <td><%= t.id %></td>
-      <td><%= t.group %></td>
+      <td><%= t.members %></td>
       <td><%= t.user %></td>
       <td><%= t.amount %></td>
       <td><%= t.note %></td>

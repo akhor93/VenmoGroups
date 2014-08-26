@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 20140728154435) do
   end
 
   create_table "transactions", force: true do |t|
-    t.integer  "group_id"
     t.integer  "user_id"
+    t.text     "members"
     t.decimal  "amount"
     t.text     "note"
     t.string   "action"

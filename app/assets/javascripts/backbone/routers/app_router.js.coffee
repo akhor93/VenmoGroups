@@ -42,6 +42,7 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     @onebox = new VenmoGroups.Views.Components.AutoCompleteView({
       user: @user
       source: @friends_arr
+      friends: @friends
     });
     $('#members-input').html(@onebox.render().el)
 
@@ -74,7 +75,6 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     @renderSideView()
     @mainview = new VenmoGroups.Views.Transactions.IndexView({
       collection: @transactions
-      groups: @groups
       user: @user
       friends: @friends
     })

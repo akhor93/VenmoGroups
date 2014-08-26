@@ -13,7 +13,6 @@ class VenmoGroups.Views.Transactions.IndexView extends Backbone.View
     view = new VenmoGroups.Views.Transactions.TransactionView({
       model: transaction
       friends: @options.friends
-      groups: @options.groups
     })
     @$('#transactions-accordion').prepend(view.render().el)
 

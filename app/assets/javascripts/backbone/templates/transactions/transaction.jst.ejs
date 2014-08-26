@@ -5,10 +5,11 @@
         <%= date %>
       </td>
       <td style="width: 35%; word-wrap: break-word; padding: 0 8px">
-        <%= group.name %>
+        <% for (var i = 0; i < members.length; i++) { %>
+          <%= friends[members[i]].first_name %><%= i != members.length-1 ? ', ' : '' %>
+        <% } %>
       </td>
       <td style="width: 20%; text-align: center">
-        <% var members = JSON.parse(group.members) %>
         <%= members.length %>
         <object type='image/svg+xml' data='/assets/nav-people.svg' style="vertical-align: middle">
           Your browser does not support SVG
