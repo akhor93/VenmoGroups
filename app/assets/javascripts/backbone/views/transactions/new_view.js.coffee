@@ -8,6 +8,9 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
 
   events:
     'submit #new-transaction': 'save'
+    'remove-memberbox': 'updateFields'
+    'add-memberbox': 'updateFields'
+    'change #transaction-amount': 'updateTotal'
 
   save: (e) ->
     that = this
@@ -20,6 +23,21 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
         that.collection.add(transaction)
         window.location.hash = "#/groups/"
     });
+
+  updateFields: ->
+    @updateNumPeople()
+    @updateTotal()
+
+  updateNumPeople: ->
+    @numPeople = 0
+    for e in $('#venmo-onebox-names .member-box')
+      @numPeople++
+    @$('#num-people-text').html(@numPeople)
+
+  updateTotal: ->
+    @total = @numPeople * $('#transaction-amount').val()
+    @$('#transaction-total').html(@total.toFixed(2))
+
 
   render: (options) ->
     group = if @options.group then @options.group.toJSON() else null
