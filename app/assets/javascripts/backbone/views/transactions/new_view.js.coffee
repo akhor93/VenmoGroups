@@ -29,8 +29,9 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
       action: @options.action
     }))
     # Work around so JqueryUI and Bootstrap play nice
-    btn = $.fn.button.noConflict()
-    $.fn.btn = btn
+    if $.fn.button.noConflict
+      btn = $.fn.button.noConflict()
+      $.fn.btn = btn
 
     @$('#actions').buttonset()
     @$("form").backboneLink(@model)

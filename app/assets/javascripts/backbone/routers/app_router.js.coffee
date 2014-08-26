@@ -66,6 +66,7 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     @onebox = new VenmoGroups.Views.Components.AutoCompleteView({
       user: @user
       source: @groups.toJSON().concat(@friends_arr)
+      friends: @friends
     });
     $('#targets-input').html(@onebox.render().el)
 

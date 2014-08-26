@@ -42,6 +42,9 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
         (value) ->
           return matcher.test( value.display_name || value.username || value.name)
       );
+    $.ui.autocomplete.prototype._resizeMenu = ->
+      ul = this.menu.element
+      ul.outerWidth(this.element.outerWidth())
     @$( "#members-input" )
       # don't navigate away from the field on tab when selecting an item
       .bind( "keydown"
@@ -52,6 +55,7 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
       )
       .autocomplete({
         minLength: 1
+        appendTo: '#venmo-onebox'
         source: (request, response ) ->
           # delegate back to autocomplete, but extract the last term
           response( $.ui.autocomplete.filter(
@@ -70,11 +74,14 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
           return false
       })
       .autocomplete( "instance" )._renderItem = ( ul, item ) ->
+        elem = $( "<li class='grey-border-bottom font-18'>" )
         if item.type == 'group'
-          return $( "<li>" )
-            .append( item.name )
-            .appendTo( ul )
+          member_ids = JSON.parse(item.members)
+          member_img_text = ''
+          for m in member_ids
+            member_img_text += "<img src='" + that.options.friends[m].profile_picture_url + "' class='img-circle profile-pic' />"
+          elem.append( item.name + " <span class='grey-small-text'>(" + item.num_members_text + ')</span>' )
+            .append( '<div style="width: 100%;">' + member_img_text + '</div>' )
         else
-          return $( "<li>" )
-            .append( item.display_name + "<br>" + item.first_name )
-            .appendTo( ul )
+          elem.append( "<img src='" + item.profile_picture_url + "' class='img-circle profile-pic margin-right-10' />" + item.display_name )
+        return elem.appendTo( ul )

@@ -51,3 +51,30 @@ body {
 .capitalize {
   text-transform: capitalize;
 }
+
+.profile-pic {
+  width: 50px;
+}
+
+.grey-border-bottom {
+  border-bottom: 1px solid #cccccc;
+}
+
+.grey-small-text {
+  color: #8f8f8f;
+  font-size: 14px;
+}
+
+.margin-right-10 {
+  margin-right: 10px;
+}
+
+.font-18 {
+  font-size: 18px;
+}
+
+.ui-autocomplete {
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
