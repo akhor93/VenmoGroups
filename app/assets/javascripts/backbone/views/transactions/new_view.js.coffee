@@ -3,9 +3,6 @@ VenmoGroups.Views.Transactions ||= {}
 class VenmoGroups.Views.Transactions.NewView extends Backbone.View
   template: JST['backbone/templates/transactions/new']
 
-  initialize: ->
-    @model = new @collection.model()
-
   events:
     'submit #new-transaction': 'save'
     'remove-memberbox': 'removeMemberbox'
@@ -19,14 +16,11 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
     e.stopPropagation()
 
     transactionDetails = $(e.currentTarget).serializeObject();
-    members = []
-    for e in $('#venmo-onebox-names .member-box')
-      members.push $(e).attr('data-userid')
-    transactionDetails.members = members
+    transactionDetails.members = @model.get('members')
     @model.save(transactionDetails, {
       success: (transaction) ->
         that.collection.add(transaction)
-        window.location.hash = "#/groups/"
+        window.location.hash = "#/"
     });
 
   removeMemberbox: (ev, id) ->
@@ -34,30 +28,25 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
     @updateFields()
 
   updateFields: ->
-    console.log("here")
-    debugger;
     @updateNumPeople()
     @updateTotal()
 
   updateNumPeople: ->
-    @numPeople = 0
-    for e in $('#venmo-onebox-names .member-box')
-      @numPeople++
-    @$('#num-people-text').html(@numPeople)
+    @$('#num-people-text').html(@model.get('num_people'))
 
   updateTotal: ->
-    @total = @numPeople * $('#transaction-amount').val()
-    @$('#transaction-total').html(@total.toFixed(2))
+    @$('#transaction-total').html(@model.get('total').toFixed(2))
 
   setAction: (ev) ->
     $('#transaction-submit-button').html($(ev.currentTarget).html())
 
   render: (options) ->
     group = if @options.group then @options.group.toJSON() else null
+    action = if @options.action then @options.action else 'pay'
     @$el.html(@template({
       model: @model.toJSON()
       group: group
-      action: @options.action
+      action: action
     }))
     # Work around so JqueryUI and Bootstrap play nice
     if $.fn.button.noConflict

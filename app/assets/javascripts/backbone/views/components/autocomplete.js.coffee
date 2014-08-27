@@ -4,18 +4,17 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
   template: JST['backbone/templates/components/autocomplete']
 
   events: {
-    'remove-memberbox': 'removeMemberbox',
-    'add-memberbox': 'test'
+    'remove-memberbox': 'removeMemberbox'
   }
-
-  test: ->
-    debugger;
 
   initialize: ->
     @source = JSON.parse(JSON.stringify(@options.source))
 
   removeMemberbox: (ev, id) ->
     @source.push(@options.friends[id])
+    new_members = @model.get('members').filter (i) ->
+      id isnt i
+    @model.set('members', new_members)
 
   render: =>
     @$el.html(@template())
@@ -26,13 +25,9 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
 
   appendExistingMembers: =>
     members = JSON.parse(@options.group.get('members'))
+    @model.set('members', _.clone members )
     for m in members
-      @source = @source.filter (user) -> 
-        user.id isnt m.toString()
-      memberbox = new VenmoGroups.Views.Components.MemberBoxView({
-        user: @options.friends[m]
-      })
-      @$('#venmo-onebox-names').append(memberbox.render().el);
+      @renderMemberBoxes(@options.friends[m])
 
   split: ( val ) ->
     return val.split( /,\s*/ )
@@ -69,12 +64,17 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
           return false
         select: (event, ui) ->
           # Remove the user once used
+          model_members = _.clone that.model.get 'members' 
           if ui.item.type == 'group'
             members = JSON.parse ui.item.members
             for m in members
               that.renderMemberBoxes(that.options.friends[m])
+              model_members.push(m)
           else
             that.renderMemberBoxes(ui.item)
+            model_members.push(ui.item.id)
+          that.model.set('members', model_members)
+          that.$el.trigger('add-memberbox')
           this.value = ""
           return false
       })
@@ -95,6 +95,6 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
     memberbox = new VenmoGroups.Views.Components.MemberBoxView({
       user: user
     })
-    $('#venmo-onebox-names').append(memberbox.render().el);
+    @$('#venmo-onebox-names').append(memberbox.render().el);
     @source = @source.filter (friends) ->
       friends.id isnt user.id
