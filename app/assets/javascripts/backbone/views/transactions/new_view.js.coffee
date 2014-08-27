@@ -10,13 +10,14 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
     'change #transaction-amount': 'updateTotal'
     'click .action-button': 'setAction'
 
-  save: (e, target) ->
+  save: (e) ->
     that = this
     e.preventDefault()
     e.stopPropagation()
 
     transactionDetails = $(e.currentTarget).serializeObject();
     transactionDetails.members = @model.get('members')
+    
     @model.save(transactionDetails, {
       success: (transaction) ->
         that.collection.add(transaction)

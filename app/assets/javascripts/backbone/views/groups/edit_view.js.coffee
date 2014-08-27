@@ -12,19 +12,12 @@ class VenmoGroups.Views.Groups.EditView extends Backbone.View
     e.preventDefault()
     e.stopPropagation()
 
-    groupDetails = {}
-    groupDetails.name = $('#group-name').val()
-    groupDetails.members = @memberBoxToString()
+    groupDetails = $(e.currentTarget).serializeObject();
+    groupDetails.members = @model.get('members')
     @model.save(groupDetails, {
       success: (group) ->
         window.location.hash = "#/groups/"
     });
-
-  memberBoxToString: ->
-    members = []
-    for e in $('#venmo-onebox-names .member-box')
-      members.push($(e).attr('data-userid'))
-    return JSON.stringify(members)
 
   destroy: (e) ->
     e.preventDefault()

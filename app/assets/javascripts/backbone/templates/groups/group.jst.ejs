@@ -27,13 +27,12 @@
   <hr />
   <div>
     <table style="width: 100%">
-    <% var members = JSON.parse(group.members) %>
     <% var newRow = true %>
-    <% for(var i = 0; i < members.length; i++) { %>
+    <% for(var i = 0; i < group.members.length; i++) { %>
       <%= newRow ? '<tr>' : '' %>
         <td style="width: 50%; padding: 4px;">
-          <img src="<%= friends[members[i]].profile_picture_url %>" class="img-circle" style="max-width: 50px" alt="<%=friends[members[i]].display_name %>" />
-          <%= friends[members[i]].display_name %>
+          <img src="<%= friends[group.members[i]].profile_picture_url %>" class="img-circle" style="max-width: 50px" alt="<%=friends[group.members[i]].display_name %>" />
+          <%= friends[group.members[i]].display_name %>
         </td>
       <%= newRow ? '' : '</tr>' %>
       <% newRow = !newRow %>
