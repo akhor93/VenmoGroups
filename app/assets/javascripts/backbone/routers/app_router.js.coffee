@@ -60,7 +60,6 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     group = if id then @groups.get(id) else null
     @view = new VenmoGroups.Views.Transactions.NewView({
       collection: @transactions
-      group: group
       action: action
     })
     $('#main-content').html(@view.render().el)
@@ -68,8 +67,10 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
       user: @user
       source: @groups.toJSON().concat(@friends_arr)
       friends: @friends
+      group: group
     });
     $('#targets-input').html(@onebox.render().el)
+    @view.updateFields()
 
   index: ->
     @renderSideView()

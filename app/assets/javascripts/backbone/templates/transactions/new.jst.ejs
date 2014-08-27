@@ -1,4 +1,4 @@
-<h1><span class="capitalize"><%= action %>Pay and Charge</h1>
+<h1><span class="capitalize">Pay and Charge</h1>
 <br />
 <form id="new-transaction" role="form">
   <div class="form-group" id="actions">
@@ -40,6 +40,6 @@
 
   <div class="form-group">
     <a href="#/groups/" class="btn btn-default">Back</a>
-    <button type="submit" id="transaction-submit-button" class="btn btn-primary"><%= action != 'pay' ? 'Pay' : 'Charge' %></button>
+    <button type="submit" id="transaction-submit-button" class="btn btn-primary"><%= action == 'pay' ? 'Pay' : 'Charge' %></button>
   </div>
 </form>

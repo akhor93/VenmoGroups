@@ -20,7 +20,6 @@ class VenmoGroups.Views.Transactions.TransactionView extends Backbone.View
     @$el.addClass('transaction-container')
     date = moment(transaction.created_at)
     transaction.amount = @flipSigns(transaction.amount)
-    console.log(transaction)
     @$el.html(@template({
       transaction: transaction
       friends: @options.friends

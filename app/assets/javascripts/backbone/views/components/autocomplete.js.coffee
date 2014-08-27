@@ -4,27 +4,28 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
   template: JST['backbone/templates/components/autocomplete']
 
   events: {
-    'remove-memberbox': 'removeMemberbox'
+    'remove-memberbox': 'removeMemberbox',
+    'add-memberbox': 'test'
   }
+
+  test: ->
+    debugger;
 
   initialize: ->
     @source = JSON.parse(JSON.stringify(@options.source))
-    @selected = []
 
   removeMemberbox: (ev, id) ->
     @source.push(@options.friends[id])
-    @selected = @selected.filter (user) ->
-      user.id isnt id
 
   render: =>
     @$el.html(@template())
-    if @model
+    if @options.group
       @appendExistingMembers()
     @attachAutocomplete()
     return this
 
   appendExistingMembers: =>
-    members = JSON.parse(@model.get('members'))
+    members = JSON.parse(@options.group.get('members'))
     for m in members
       @source = @source.filter (user) -> 
         user.id isnt m.toString()
@@ -32,7 +33,6 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
         user: @options.friends[m]
       })
       @$('#venmo-onebox-names').append(memberbox.render().el);
-      @selected.push(@options.friends[m])
 
   split: ( val ) ->
     return val.split( /,\s*/ )
@@ -75,7 +75,6 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
               that.renderMemberBoxes(that.options.friends[m])
           else
             that.renderMemberBoxes(ui.item)
-          that.$el.trigger('add-memberbox')
           this.value = ""
           return false
       })
@@ -99,4 +98,3 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
     $('#venmo-onebox-names').append(memberbox.render().el);
     @source = @source.filter (friends) ->
       friends.id isnt user.id
-    @selected.push(@options.friends[user.id])

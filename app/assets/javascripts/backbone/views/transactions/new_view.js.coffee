@@ -34,6 +34,8 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
     @updateFields()
 
   updateFields: ->
+    console.log("here")
+    debugger;
     @updateNumPeople()
     @updateTotal()
 
