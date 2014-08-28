@@ -1,5 +1,5 @@
 <div id="logo-container">
-  <img class="logo" src="https://developer.venmo.com/static/imgs/venmo_logo_blue.png" />
+  <img class="logo" src="/images/boost_logo2.png" />
 </div>
 <br />
 <div style="border-right: 3px solid #e5e5e5">
@@ -21,13 +21,13 @@
   </div>
   <div id="navigation">
     <div class="link">
-      <a href="#/">Home</a>
+      <a href="#/"  class="<%= active == 'index' ? 'active' : '' %>">Home</a>
     </div>
     <div class="link">
-      <a href="#/groups/">Groups</a>
+      <a href="#/groups/" class="<%= active == 'group' ? 'active' : '' %>">Groups</a>
     </div>
     <div class="link">
-      <a href="#/transactions/new/">Pay or Charge</a>
+      <a href="#/transactions/new/" class="<%= active == 'transaction' ? 'active' : '' %>">Pay or Charge</a>
     </div>
   </div>
 </div>

@@ -1,4 +1,8 @@
 class Transaction < ActiveRecord::Base
+  validates :members, presence: true
+  validates :amount, presence: true
+  validates :note, presence: true
+  validates :action, presence: true
   validates :venmo_transaction_ids, presence: true
 
   #Associations
@@ -20,8 +24,6 @@ class Transaction < ActiveRecord::Base
     end
     transaction_params = { :members => params[:members].to_json, :user => user, :amount => amount, :note => params[:note], :action => params[:action], :venmo_transaction_ids => transaction_ids.to_json }
     transaction = Transaction.create(transaction_params)
-    puts transaction.inspect
-    puts transaction.errors.inspect
     return transaction
   end
 end

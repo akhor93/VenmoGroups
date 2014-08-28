@@ -78,3 +78,20 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+.logo {
+  width: 150px;
+}
+
+.btn-success {
+  background-color: #5bc0de;
+  border-color: #41a1bd;
+}
+
+.btn-success:hover {
+  background-color: #41a1bd;
+}
+
+h1 {
+  color: #5bc0de;
+}

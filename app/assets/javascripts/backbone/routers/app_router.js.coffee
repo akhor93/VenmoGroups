@@ -16,7 +16,7 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     '.*': 'index'
 
   groupEdit: (id) ->
-    @renderSideView()
+    @renderSideView({ active: 'group' })
     group = @groups.get(id)
     view = new VenmoGroups.Views.Groups.EditView({
       model: group
@@ -35,7 +35,7 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     $('#members-input').html(onebox.render().el)
 
   groupNew: ->
-    @renderSideView()
+    @renderSideView({ active: 'group' })
     group = new VenmoGroups.Models.Group()
     view = new VenmoGroups.Views.Groups.NewView({
       collection: @groups
@@ -51,7 +51,7 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     $('#members-input').html(onebox.render().el)
 
   groupIndex: ->
-    @renderSideView()
+    @renderSideView({ active: 'group' })
     view = new VenmoGroups.Views.Groups.IndexView({
       collection: @groups
       user: @user
@@ -60,7 +60,7 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     $('#main-content').html(view.render().el)
 
   transactionNew: (action, id) ->
-    @renderSideView()
+    @renderSideView({ active: 'transaction' })
     group = if id then @groups.get(id) else null
     transaction = new VenmoGroups.Models.Transaction({group: group})
     view = new VenmoGroups.Views.Transactions.NewView({
@@ -79,7 +79,7 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     $('#targets-input').html(onebox.render().el)
 
   index: ->
-    @renderSideView()
+    @renderSideView({ active: 'index' })
     view = new VenmoGroups.Views.Transactions.IndexView({
       collection: @transactions
       user: @user
@@ -88,8 +88,8 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     $('#main-content').html(view.render().el)
     
 
-  renderSideView: ->
+  renderSideView: (options) ->
     sidebar = new VenmoGroups.Views.Components.SideBarView({
       user: @user
     })
-    $('#sidebar').html(sidebar.render().el)
+    $('#sidebar').html(sidebar.render(options).el)
