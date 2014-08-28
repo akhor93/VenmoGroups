@@ -38,6 +38,7 @@ class GroupsController < ApplicationController
     end
   end
 
+  # TODO
   def destroy
     respond_to do |format|
       Group.destroy(params[:id])

@@ -5,11 +5,13 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
 
   events:
     'submit #new-transaction': 'save'
-    'change #transaction-amount': 'updateTotal'
+    'change #transaction-amount': 'renderTotal'
     'click .action-button': 'setAction'
+    'change input#transaction-amount': 'updateAmount'
 
   initialize: ->
-    # @model.on('change', @updateFields, this)
+    @model.on('change:members', @renderFields, this)
+    @model.on('change:amount', @renderTotal, this)
 
   save: (e) ->
     that = this
@@ -25,18 +27,21 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
         window.location.hash = "#/"
     });
 
-  updateFields: ->
-    @updateNumPeople()
-    @updateTotal()
+  renderFields: ->
+    @renderNumPeople()
+    @renderTotal()
 
-  updateNumPeople: ->
+  renderNumPeople: ->
     @$('#num-people-text').html(@model.get('num_people'))
 
-  updateTotal: ->
+  renderTotal: ->
     @$('#transaction-total').html(@model.get('total').toFixed(2))
 
   setAction: (ev) ->
     $('#transaction-submit-button').html($(ev.currentTarget).html())
+
+  updateAmount: (ev) ->
+    @model.set('amount',$(ev.currentTarget).val())
 
   render: (options) ->
     group = if @options.group then @options.group.toJSON() else null

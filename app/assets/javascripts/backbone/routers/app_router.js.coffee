@@ -77,7 +77,6 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
       model: transaction
     });
     $('#targets-input').html(onebox.render().el)
-    view.updateFields()
 
   index: ->
     @renderSideView()
