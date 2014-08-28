@@ -10,6 +10,7 @@ class GroupsController < ApplicationController
   end
 
   def create
+    params[:group][:members] = params[:group][:members].to_s
     @group = Group.new(group_params)
     @group.user_id = current_user.id
     respond_to do |format|
@@ -25,6 +26,7 @@ class GroupsController < ApplicationController
 
   def update
     @group = Group.find(params[:id])
+    params[:group][:members] = params[:group][:members].to_s
     respond_to do |format|
       if @group.update(group_params)
         format.html { redirect_to @group, notice: 'Group was successfully updated.' }

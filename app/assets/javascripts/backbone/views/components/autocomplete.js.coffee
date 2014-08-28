@@ -15,6 +15,7 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
     new_members = @model.get('members').filter (i) ->
       id isnt i
     @model.set('members', new_members)
+    $('#memberbox-' + id).remove()
 
   render: =>
     @$el.html(@template())
@@ -24,8 +25,9 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
     return this
 
   appendExistingMembers: =>
-    members = JSON.parse(@options.group.get('members'))
-    @model.set('members', _.clone members )
+    members = @options.group.get('members')
+    if @model
+      @model.set('members', _.clone members )
     for m in members
       @renderMemberBoxes(@options.friends[m])
 

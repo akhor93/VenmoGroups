@@ -28,6 +28,7 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     onebox = new VenmoGroups.Views.Components.AutoCompleteView({
       user: @user
       source: @friends_arr
+      group: group
       model: group
       friends: @friends
     });

@@ -13,7 +13,7 @@ class VenmoGroups.Views.Groups.EditView extends Backbone.View
     e.stopPropagation()
 
     groupDetails = $(e.currentTarget).serializeObject();
-    groupDetails.members = @model.get('members')
+    groupDetails.members = JSON.stringify(@model.get('members'))
     @model.save(groupDetails, {
       success: (group) ->
         window.location.hash = "#/groups/"

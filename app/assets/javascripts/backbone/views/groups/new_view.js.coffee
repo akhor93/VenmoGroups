@@ -5,19 +5,21 @@ class VenmoGroups.Views.Groups.NewView extends Backbone.View
 
   events:
     'submit #new-group': 'save'
+    'change #group-name': 'updateGroupName'
 
   save: (e) ->
     that = this
     e.preventDefault()
     e.stopPropagation()
 
-    groupDetails = $(e.currentTarget).serializeObject();
-    groupDetails.members = JSON.stringify @model.get 'members'
-    @model.save(groupDetails, {
+    @model.save(null, {
       success: (group) ->
         that.collection.add group
         window.location.hash = "#/groups/"
     });
+
+  updateGroupName: (e) ->
+    @model.set('name', $(e.currentTarget).val())
 
   render: (options) ->
     @$el.html(@template())
