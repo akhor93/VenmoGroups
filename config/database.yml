@@ -8,8 +8,6 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  username: postgres
-  password: vagrant
   timeout: 5000
 
 development:
@@ -17,6 +15,8 @@ development:
   database: venmogroups_dev
   host: localhost
   port: 5433
+  username: postgres
+  password: vagrant
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -26,6 +26,8 @@ test:
   database: venmogroups_test
   host: localhost
   port: 5433
+  username: postgres
+  password: vagrant
 
 production:
   <<: *default
