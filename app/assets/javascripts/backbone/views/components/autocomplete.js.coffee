@@ -69,8 +69,9 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
           model_members = _.clone that.model.get 'members' 
           if ui.item.type == 'group'
             for m in ui.item.members
-              that.renderMemberBoxes(that.options.friends[m])
-              model_members.push(m)
+              if model_members.indexOf(m) == -1
+                that.renderMemberBoxes(that.options.friends[m])
+                model_members.push(m)
           else
             that.renderMemberBoxes(ui.item)
             model_members.push(ui.item.id)
