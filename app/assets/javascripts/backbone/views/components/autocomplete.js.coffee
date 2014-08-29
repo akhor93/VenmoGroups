@@ -68,8 +68,7 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
           # Remove the user once used
           model_members = _.clone that.model.get 'members' 
           if ui.item.type == 'group'
-            members = JSON.parse ui.item.members
-            for m in members
+            for m in ui.item.members
               that.renderMemberBoxes(that.options.friends[m])
               model_members.push(m)
           else
@@ -83,9 +82,8 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
       .autocomplete( "instance" )._renderItem = ( ul, item ) ->
         elem = $( "<li class='grey-border-bottom font-18'>" )
         if item.type == 'group'
-          member_ids = JSON.parse(item.members)
           member_img_text = ''
-          for m in member_ids
+          for m in item.members
             member_img_text += "<img src='" + that.options.friends[m].profile_picture_url + "' class='img-circle profile-pic' />"
           elem.append( item.name + " <span class='grey-small-text'>(" + item.num_members_text + ')</span>' )
             .append( '<div style="width: 100%;">' + member_img_text + '</div>' )

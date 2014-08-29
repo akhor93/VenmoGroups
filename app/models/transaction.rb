@@ -15,9 +15,7 @@ class Transaction < ActiveRecord::Base
     end
     transaction_ids = Array.new
     params[:members].each do |m|
-      uri = URI('https://api.venmo.com/v1/payments');
-      res = Net::HTTP.post_form(uri, 'access_token' => user.access_token, 'user_id' => m, 'note' => params[:note], 'amount' => amount, 'audience' => 'friends');
-      res_json = JSON.parse res.body
+      res_json = JSON.parse(RestClient.post('https://api.venmo.com/v1/payments', 'access_token' => user.access_token, 'user_id' => m, 'note' => params[:note], 'amount' => amount, 'audience' => 'friends'))
       payment = res_json['data']['payment']
       transaction_ids << payment['id']
       # transaction_ids << '1234'

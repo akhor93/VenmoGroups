@@ -12,15 +12,12 @@ class User < ActiveRecord::Base
   def get_friends
     #use obscenely high limit to get all friends in one page
     url = 'https://api.venmo.com/v1/users/' + venmo_id + '/friends?limit=2000&access_token=' + access_token
-    friends_uri = URI(url)
-    friends_res = Net::HTTP.get(friends_uri)
-    friends_json = JSON.parse friends_res
+    friends_json = JSON.parse RestClient.get(url)
     friends_json['data']
   end
 
   def get_full_info
-    uri = URI('https://api.venmo.com/v1/me?access_token=' + access_token)
-    JSON.parse(Net::HTTP.get(uri))['data']
+    JSON.parse(RestClient.get('https://api.venmo.com/v1/me?access_token=' + access_token))['data']
   end
 
   #Virtual Attributes

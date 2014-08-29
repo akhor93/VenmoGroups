@@ -44,6 +44,7 @@ gem 'jquery-ui-rails'
 gem 'momentjs-rails'
 gem 'rails-backbone'
 gem 'rails_12factor', group: :production #for Heroku
+gem 'rest-client'
 
 
 

@@ -32,8 +32,7 @@ class Group < ActiveRecord::Base
     members = Array.new();
     memberids = JSON.parse group.members
     memberids.each do |id|
-      uri = URI('https://api.venmo.com/v1/users/' + id + '?access_token=' + user.access_token)
-      data = JSON.parse Net::HTTP.get(uri)
+      data = JSON.parse(RestClient.get('https://api.venmo.com/v1/users/' + id + '?access_token=' + user.access_token))
       members << data['data']
     end
     return members
