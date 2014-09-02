@@ -46,5 +46,9 @@ gem 'rails-backbone'
 gem 'rails_12factor', group: :production #for Heroku
 gem 'rest-client'
 
+group :development, :test do
+  # gem 'rspec-rails', '~> 3.0.0'
+end
+
 
 

@@ -19,17 +19,4 @@ class User < ActiveRecord::Base
   def get_full_info
     JSON.parse(RestClient.get('https://api.venmo.com/v1/me?access_token=' + access_token))['data']
   end
-
-  #Virtual Attributes
-  #Getter
-  def full_name
-    [first_name, last_name].join(' ')
-  end
-
-  #Setter
-  def full_name=(name)
-    split = name.split(' ', 2)
-    self.first_name = split.first
-    self.last_name = split.last
-  end
 end

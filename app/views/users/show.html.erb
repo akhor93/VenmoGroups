@@ -11,6 +11,24 @@
 
 <script type="text/javascript">
   $(function() {
+    _.extend(Backbone.Validation.callbacks, {
+      valid: function (view, attr, selector) {
+        $el = view.$('[name=' + attr + ']');
+        $group = $el.closest('.form-group');
+
+        $group.removeClass('has-error');
+        $group.find('.help-block').html('').removeClass('hidden');
+      },
+
+      invalid: function (view, attr, error, selector) {
+        $el = view.$('[name=' + attr + ']');
+        $group = $el.closest('.form-group');
+
+        $group.addClass('has-error');
+        $group.find('.help-block').html(error).removeClass('hidden');
+      }
+    });
+
     var user = new VenmoGroups.Models.User(<%= @user.to_json.html_safe -%>)
     var groups = new VenmoGroups.Collections.GroupsCollection(<%= @groups.to_json.html_safe -%>);
     var friends_arr = <%= @friends.to_json.html_safe -%>;
@@ -25,7 +43,7 @@
       transactions: transactions
     });
     if (!Backbone.History.started) Backbone.history.start({ root: '/user/ <%= @user_id %>' });
-
+    
     function toObject(arr) {
       var obj = {};
       for (var i = 0; i < arr.length; i++) {
