@@ -75,6 +75,7 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
       friends: @friends
       group: group
       model: transaction
+      context: 'transaction'
     });
     $('#targets-input').html(onebox.render().el)
 

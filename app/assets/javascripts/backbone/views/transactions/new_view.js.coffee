@@ -12,6 +12,7 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
   initialize: ->
     @model.on('change:members', @renderFields, this)
     @model.on('change:amount', @renderTotal, this)
+    Backbone.Validation.bind(this);
 
   save: (e) ->
     that = this
@@ -19,13 +20,16 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
     e.stopPropagation()
 
     transactionDetails = $(e.currentTarget).serializeObject();
-    transactionDetails.members = @model.get('members')
-    
-    @model.save(transactionDetails, {
-      success: (transaction) ->
-        that.collection.add(transaction)
-        window.location.hash = "#/"
-    });
+    transactionDetails.members = @model.get('members') #preserve because input for members is always empty
+    @model.set transactionDetails
+
+    if @model.isValid true
+      debugger;
+      # @model.save(transactionDetails, {
+      #   success: (transaction) ->
+      #     that.collection.add(transaction)
+      #     window.location.hash = "#/"
+      # });
 
   renderFields: ->
     @renderNumPeople()

@@ -18,13 +18,16 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
     $('#memberbox-' + id).remove()
 
   render: =>
-    @$el.html(@template())
+    @$el.html(@template({
+      context: @options.context
+    }))
     if @options.group
       @appendExistingMembers()
     @attachAutocomplete()
     return this
 
   appendExistingMembers: =>
+    that = this;
     members = @options.group.get('members')
     if @model
       @model.set('members', _.clone members )
@@ -68,6 +71,7 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
           # Remove the user once used
           model_members = _.clone that.model.get 'members' 
           if ui.item.type == 'group'
+            debugger;
             for m in ui.item.members
               if model_members.indexOf(m) == -1
                 that.renderMemberBoxes(that.options.friends[m])

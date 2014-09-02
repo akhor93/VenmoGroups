@@ -24,6 +24,17 @@ class VenmoGroups.Models.Transaction extends Backbone.Model
   calculateNumPeople: ->
     @set('num_people', @get('members').length)
 
+  validation:
+    action:
+      required: true
+    members: (value, attr, computedState) ->
+      if value.length == 0
+        return 'Add Friends or Groups'
+    amount:
+      min: 0.01
+    note:
+      required: true
+
 class VenmoGroups.Collections.TransactionsCollection extends Backbone.Collection
   model: VenmoGroups.Models.Transaction
   url: '/transactions'

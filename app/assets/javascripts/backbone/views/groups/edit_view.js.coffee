@@ -7,17 +7,22 @@ class VenmoGroups.Views.Groups.EditView extends Backbone.View
     'submit #edit-group': 'save'
     'click .delete': 'destroy'
 
+  initialize: ->
+    Backbone.Validation.bind(this);
+
   save: (e) ->
     that = this
     e.preventDefault()
     e.stopPropagation()
 
     groupDetails = $(e.currentTarget).serializeObject();
-    groupDetails.members = JSON.stringify(@model.get('members'))
-    @model.save(groupDetails, {
-      success: (group) ->
-        window.location.hash = "#/groups/"
-    });
+    groupDetails.members = @model.get('members')
+    @model.set groupDetails
+    if @model.isValid true
+      @model.save(groupDetails, {
+        success: (group) ->
+          window.location.hash = "#/groups/"
+      });
 
   destroy: (e) ->
     e.preventDefault()
