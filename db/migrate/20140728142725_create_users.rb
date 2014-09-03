@@ -4,6 +4,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :access_token
       t.string :refresh_token
       t.string :venmo_id
+      t.integer :expires_in
+      t.datetime :updated_at, :default => Time.now
       t.timestamps
     end
   end

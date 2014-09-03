@@ -36,8 +36,9 @@ ActiveRecord::Schema.define(version: 20140728154435) do
     t.string   "access_token"
     t.string   "refresh_token"
     t.string   "venmo_id"
-    t.datetime "created_at"
+    t.integer  "expires_in"
     t.datetime "updated_at"
+    t.datetime "created_at"
   end
 
 end

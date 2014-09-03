@@ -20,12 +20,15 @@ class UsersController < ApplicationController
     if User.exists?(:venmo_id => user_json['user']['id'])
       user = User.where(venmo_id: user_json['user']['id']).first
       session[:user_id] = user.id
+      user.update_access_token_if_needed
       return redirect_to :action => :show, id: user.id
     end
     user_params = {
       :access_token => user_json['access_token'],
       :refresh_token => user_json['refresh_token'],
-      :venmo_id => user_json['user']['id']
+      :venmo_id => user_json['user']['id'],
+      :expires_in => user_json['expires_in'],
+      :updated_at => Time.now
     }
     user = User.new(user_params)
     if user.save

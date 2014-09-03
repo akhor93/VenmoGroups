@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   validates :access_token, presence: true
   validates :refresh_token, presence: true
   validates :venmo_id, presence: true, uniqueness: true
+  validates :expires_in, presence: true
+  validates :updated_at, presence: true
 
   #Associations
   has_many :groups, dependent: :destroy
@@ -18,5 +20,20 @@ class User < ActiveRecord::Base
 
   def get_full_info
     JSON.parse(RestClient.get('https://api.venmo.com/v1/me?access_token=' + access_token))['data']
+  end
+
+  def update_access_token_if_needed
+    seconds_since_update = ((Time.now - updated_at) * 24 * 60 * 60).to_i
+    if seconds_since_update > expires_in
+      begin
+        resp = RestClient.post('https://api.venmo.com/v1/oauth/access_token', 'client_id' => 1843, 'client_secret' => "9wgWKHkzY5pLdcAbwJq3wqy7uEAFHzaR", 'refresh_token' => refresh_token);
+        access_token = resp['access_token']
+        expires_in = resp['expires_in']
+        refresh_token = resp['refresh_token']
+        updated_at = Time.now
+      rescue RestClient::BadRequest
+        puts RestClient::BadRequest.inspect
+      end
+    end
   end
 end

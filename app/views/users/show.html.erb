@@ -34,7 +34,7 @@
     var friends_arr = <%= @friends.to_json.html_safe -%>;
     var friends = toObject(friends_arr);
     var transactions = new VenmoGroups.Collections.TransactionsCollection(<%= @transactions.to_json.html_safe -%>);
-
+    
     window.router = new VenmoGroups.Routers.AppRouter({
       user: user,
       groups: groups,
