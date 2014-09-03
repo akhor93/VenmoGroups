@@ -4,27 +4,38 @@
 
 <div class="container" style="margin-top: 10px">
   <% if flash[:error] %>
-    <div class="alert alert-danger"><%= flash[:error] %></div>
+    <div class="alert alert-danger alert-dismissable"><%= flash[:error] %>
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+      </button>
+    </div>
   <% end %>
   <% if flash[:warning] %>
-    <div class="alert alert-warning"><%= flash[:warning] %></div>
+    <div class="alert alert-warning alert-dismissable"><%= flash[:warning] %>
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+      </button>
+    </div>
   <% end %>
   <div class="header">
     <ul class="nav nav-pills pull-right">
       <li class="active"><a href="https://api.venmo.com/v1/oauth/authorize?client_id=1843&amp;scope=access_profile make_payments access_friends access_balance access_profile access_feed&amp;response_type=code">Log In</a></li>
       <li><a href="mailto:akhor93@gmail.com">Contact</a></li>
     </ul>
-    <img class="logo" src="/images/boost_logo2.png" />
+    <img class="logo" src="/images/boost_logo.png" />
   </div>
   <div class="jumbotron">
     <h1>Bringing Groups to Venmo</h1>
-    <p><a href="https://api.venmo.com/v1/oauth/authorize?client_id=1843&amp;scope=access_profile make_payments access_friends access_balance access_profile access_feed&amp;response_type=code"><%= image_tag "connect-to-venmo.png" %></a>
+    <p>
+      <a href="https://api.venmo.com/v1/oauth/authorize?client_id=1843&amp;scope=access_profile make_payments access_friends access_balance access_profile access_feed&amp;response_type=code">
+        <img src="/images/B - Sign With Venmo.png" style="width: 300px" %>
+      </a>
     </p>
   </div>
   <div class="row marketing">
     <div class="col-lg-6">
       <h4>Pay and Charge Multiple People</h4>
-      <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+      <p>Use any combination of your groups and friends to make payments or charges!</p>
     </div>
 
     <div class="col-lg-6">
@@ -33,6 +44,6 @@
     </div>
   </div>
   <div class="footer">
-    <p>© Boost Payments 2014</p>
+    <p>© Boosted Payments 2014 - Powered by Venmo</p>
   </div>
 </div>

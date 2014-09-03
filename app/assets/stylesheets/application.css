@@ -83,13 +83,13 @@ body {
   width: 150px;
 }
 
-.btn-success {
+.btn-success, .nav-pills > li.active > a {
   background-color: #5bc0de;
   border-color: #41a1bd;
 }
 
-.btn-success:hover, .btn-success:focus {
-  background-color: #41a1bd;
+.btn-success:hover, .btn-success:focus, .nav-pills > li.active > a:hover {
+  background-color: #8CD3E8;
 }
 
 h1 {

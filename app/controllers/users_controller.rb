@@ -11,6 +11,10 @@ class UsersController < ApplicationController
   end
 
   def create
+    if params[:error]
+      flash[:error] = "Please allow Boosted Payments to use Venmo on your behalf"
+      return redirect_to :controller => :welcome, :action => :index 
+    end
     user_json = JSON.parse(RestClient.post('https://api.venmo.com/v1/oauth/access_token', 'client_id' => 1843, 'client_secret' => "9wgWKHkzY5pLdcAbwJq3wqy7uEAFHzaR", 'code' => params[:code]))
 
     if User.exists?(:venmo_id => user_json['user']['id'])
