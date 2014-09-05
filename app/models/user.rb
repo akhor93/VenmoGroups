@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   end
 
   def update_access_token_if_needed
-    seconds_since_update = ((Time.now - updated_at) * 24 * 60 * 60).to_i
+    seconds_since_update = (Time.now - updated_at.localtime).to_i
     if seconds_since_update > expires_in
       begin
         resp = RestClient.post('https://api.venmo.com/v1/oauth/access_token', 'client_id' => 1843, 'client_secret' => "9wgWKHkzY5pLdcAbwJq3wqy7uEAFHzaR", 'refresh_token' => refresh_token);

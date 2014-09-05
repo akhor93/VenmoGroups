@@ -21,15 +21,14 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
 
     transactionDetails = $(e.currentTarget).serializeObject();
     transactionDetails.members = @model.get('members') #preserve because input for members is always empty
+    transactionDetails.amount = @model.get('amount')
     @model.set transactionDetails
-
     if @model.isValid true
-      debugger;
-      # @model.save(transactionDetails, {
-      #   success: (transaction) ->
-      #     that.collection.add(transaction)
-      #     window.location.hash = "#/"
-      # });
+      @model.save(transactionDetails, {
+        success: (transaction) ->
+          that.collection.add(transaction)
+          window.location.hash = "#/"
+      });
 
   renderFields: ->
     @renderNumPeople()
@@ -45,7 +44,7 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
     $('#transaction-submit-button').html($(ev.currentTarget).html())
 
   updateAmount: (ev) ->
-    @model.set('amount',$(ev.currentTarget).val())
+    @model.set('amount',Number($(ev.currentTarget).val()))
 
   render: (options) ->
     group = if @options.group then @options.group.toJSON() else null

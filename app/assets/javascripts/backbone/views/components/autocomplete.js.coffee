@@ -71,7 +71,6 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
           # Remove the user once used
           model_members = _.clone that.model.get 'members' 
           if ui.item.type == 'group'
-            debugger;
             for m in ui.item.members
               if model_members.indexOf(m) == -1
                 that.renderMemberBoxes(that.options.friends[m])

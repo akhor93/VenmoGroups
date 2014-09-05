@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def show
     @user_id = current_user.id
+    puts current_user.inspect
     @user = current_user.get_full_info
     @friends = current_user.get_friends
     @groups = current_user.groups
