@@ -1,39 +1,17 @@
 #sidebar {
-  width: 200px;
-  float: left;
-  overflow: hidden;
-  #logo-container {
-    padding: 10px;
-    img {
-      width: 120px;
-    }
-  }
-  #user-info-box {
-    img {
-      width: 60px
-    }
-  }
-  #navigation {
-    padding: 10px;
-    .link {
-      margin-bottom: 15px;
-      a {
-        color: #cccccc;
-        font-size: 16px;
-      }
-      a:hover {
-        text-decoration: none;
-      }
-      .active {
-        font-weight: 600;
-      }
-    }
+  // border-rigxht: 2px solid #e5e5e5;
+  padding: 0px;
+
+  .logo {
+    
   }
 }
 
-#mainbar {
-  margin-left: 210px;
+.navbar {
+  margin-bottom: 0px;
+}
 
+#mainbar {
   hr {
     margin-top: 0px;
     margin-bottom: 0px;

@@ -90,7 +90,6 @@ class VenmoGroups.Routers.AppRouter extends Backbone.Router
     
 
   renderSideView: (options) ->
-    debugger;
     sidebar = new VenmoGroups.Views.Components.SideBarView({
       user: @user
     })
