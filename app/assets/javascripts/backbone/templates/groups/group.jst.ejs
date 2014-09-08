@@ -1,26 +1,24 @@
 <div>
   <div style="height: 10px; width: 100%; background-color: #5bc0de"></div>
-  <table style="table-layout: fixed; width: 100%; color: grey;" cellpadding="5px">
-    <tr>
-      <td style="width: 90%; word-break: break-word">
-        <a data-toggle="collapse" data-parent="#groups-accordion" href="#group<%= group.id %>" class="toggle-group-info disable-hover-underline">
-          <div style="padding: 5px">
-            <div style="font-size: 24px; color: #3C95D2;">
-              <%= group.name %>
-            </div>
-            <div >
-              <%= group.num_members_text %>
-            </div>
+  <div class="row" style="display:flex; align-items: center ">
+    <div class="col-xs-9 col-sm-10">
+      <a data-toggle="collapse" data-parent="#groups-accordion" href="#group<%= group.id %>" class="toggle-group-info disable-hover-underline">
+        <div style="padding: 5px">
+          <div style="font-size: 24px; color: #3C95D2;">
+            <%= group.name %>
           </div>
-        </a>
-      </td>
-      <td style="text-align: right">
-        <a href="#/groups/edit/<%= group.id %>">
-          <img width="40px" src="/images/cog.png" />
-        </a>
-      </td>
-    </tr>
-  </table>
+          <div >
+            <%= group.num_members_text %>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="col-xs-3 col-sm-2">
+      <a href="#/groups/edit/<%= group.id %>">
+        <img width="40px" src="/images/cog.png" />
+      </a>
+    </div>
+  </div>
 </div>
 
 <div id="group<%= group.id %>" class="panel-collapse collapse">

@@ -3,7 +3,7 @@ class CreateTransactions < ActiveRecord::Migration
     create_table :transactions do |t|
       t.belongs_to :user
       t.text :members
-      t.decimal :amount
+      t.float :amount
       t.text :note
       t.string :action
       t.text :venmo_transaction_ids
