@@ -238,7 +238,7 @@ Backbone.Validation = (function(_){
               result = validateModel(model, allAttrs);
 
           model._isValid = result.isValid;
-
+          
           // After validation is performed, loop through all validated attributes
           // and call the valid callbacks so the view is updated.
           _.each(validatedAttrs, function(val, attr){

@@ -23,7 +23,7 @@ class VenmoGroups.Views.Transactions.TransactionView extends Backbone.View
     @$el.html(@template({
       transaction: transaction
       friends: @options.friends
-      members: JSON.parse(transaction.members)
+      members: transaction.members
       date: date.format("MM/DD/YY")
     }))
     return this

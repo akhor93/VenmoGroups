@@ -10,12 +10,13 @@ class Transaction < ActiveRecord::Base
 
   def self.submit_and_save(params, user)
     amount = params[:amount].round(2)
+    amount_signed = amount
     if params[:action] === 'charge'
-      amount *= -1;
+      amount_signed *= -1;
     end
     transaction_ids = Array.new
     params[:members].each do |m|
-      res_json = JSON.parse(RestClient.post('https://api.venmo.com/v1/payments', 'access_token' => user.access_token, 'user_id' => m, 'note' => params[:note], 'amount' => amount, 'audience' => 'friends'))
+      res_json = JSON.parse(RestClient.post('https://api.venmo.com/v1/payments', 'access_token' => user.access_token, 'user_id' => m, 'note' => params[:note], 'amount' => amount_signed, 'audience' => 'friends'))
       payment = res_json['data']['payment']
       transaction_ids << payment['id']
     end

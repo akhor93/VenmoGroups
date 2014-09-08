@@ -14,6 +14,7 @@ class VenmoGroups.Models.Transaction extends Backbone.Model
   initialize: (options) ->
     if options.group
       @set('members', options.group.members)
+    @calculateNumPeople()
     @on('change:amount', @calculateTotal, this)
     @on('change:members', @calculateTotal, this)
     @on('change:members', @calculateNumPeople, this)
@@ -22,7 +23,12 @@ class VenmoGroups.Models.Transaction extends Backbone.Model
     @set('total', @get('amount') * @get('members').length)
 
   calculateNumPeople: ->
+    @set_members_as_array()
     @set('num_people', @get('members').length)
+
+  set_members_as_array: ->
+    if typeof @get('members') == 'string'
+      @set('members', JSON.parse(@get('members')))
 
   validation:
     action:

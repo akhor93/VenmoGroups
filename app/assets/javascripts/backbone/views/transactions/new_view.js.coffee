@@ -22,13 +22,11 @@ class VenmoGroups.Views.Transactions.NewView extends Backbone.View
     transactionDetails = $(e.currentTarget).serializeObject();
     transactionDetails.members = @model.get('members') #preserve because input for members is always empty
     transactionDetails.amount = @model.get('amount')
-    @model.set transactionDetails
-    if @model.isValid true
-      @model.save(transactionDetails, {
-        success: (transaction) ->
-          that.collection.add(transaction)
-          window.location.hash = "#/"
-      });
+    @model.save(transactionDetails, {
+      success: (transaction) ->
+        that.collection.add(transaction)
+        window.location.hash = "#/"
+    });
 
   renderFields: ->
     @renderNumPeople()

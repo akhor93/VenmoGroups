@@ -10,8 +10,8 @@ class VenmoGroups.Models.Group extends Backbone.Model
     @set('type','group')
     @set_members_as_array()
     @set_num_members_text()
-    @on('change:members', @set_num_members_text, this)
     @on('change:members', @set_members_as_array, this)
+    @on('change:members', @set_num_members_text, this)
 
 
   set_num_members_text: ->
