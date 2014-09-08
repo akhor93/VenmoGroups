@@ -26,10 +26,24 @@ body {
   background-color: #5bc0de;
 }
 
-.container {
+/*.container {
   max-width: 730px;
   padding-left: 15px;
   padding-right: 15px;
+}*/
+
+@media (min-width: 1200px) {
+  .container {
+    width: 750px;
+  }
+}
+
+.nav {
+  font-size: 18px;
+}
+
+.icon-bar {
+  background-color: #5bc0de;
 }
 
 .pay-text {
