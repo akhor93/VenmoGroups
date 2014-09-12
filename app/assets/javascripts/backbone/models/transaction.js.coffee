@@ -13,7 +13,7 @@ class VenmoGroups.Models.Transaction extends Backbone.Model
 
   initialize: (options) ->
     if options.group
-      @set('members', options.group.members)
+      @set('members', options.group.get('members'))
     @calculateNumPeople()
     @on('change:amount', @calculateTotal, this)
     @on('change:members', @calculateTotal, this)

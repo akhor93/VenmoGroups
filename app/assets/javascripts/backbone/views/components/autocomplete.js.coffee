@@ -27,12 +27,10 @@ class VenmoGroups.Views.Components.AutoCompleteView extends Backbone.View
     return this
 
   appendExistingMembers: =>
-    that = this;
     members = @options.group.get('members')
-    if @model
-      @model.set('members', _.clone members )
     for m in members
       @renderMemberBoxes(@options.friends[m])
+    @model.trigger('change:members')
 
   split: ( val ) ->
     return val.split( /,\s*/ )
