@@ -1,4 +1,4 @@
-# Group Payments Using the Venmo Developer API
+#Group Payments Using the Venmo Developer API
 
 ## Overview
 Boosted Payments is a mobile-friendly web app that enables group payments on the Venmo platform. Users can create groups from their Venmo friends; then pay/charge any combination of groups and friends. Find it live at http://boostedpayments.com
@@ -6,6 +6,7 @@ Boosted Payments is a mobile-friendly web app that enables group payments on the
 ## Technologies
 Boosted Payments utilizes:
 
+* Ruby on Rails
 * Jquery
 * Backbone
 * Backbone-Validate
